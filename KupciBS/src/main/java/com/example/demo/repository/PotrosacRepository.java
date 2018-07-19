@@ -8,11 +8,9 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.klase.*;
 
 @Repository
-public interface KorisnikRepository extends JpaRepository<Korisnik, Integer> {
+public interface PotrosacRepository extends JpaRepository<Potrosac, Integer> {
 	
-	@Query("SELECT k FROM Korisnik k WHERE k.korisnickoIme = ?1 AND k.lozinka = ?2")
-	public Korisnik logovanje(String user, String pass);
 
-
+	public List<Potrosac> vratiSvePotrosace();
 
 }

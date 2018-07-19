@@ -22,6 +22,9 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  *
  * @author Dane
@@ -66,11 +69,14 @@ public class Kupac implements Serializable {
     private String prosireniNaziv;
     @JoinColumn(name = "ID_ADRESE_SR", referencedColumnName = "ID_ADRESE")
     @ManyToOne
+    @JsonManagedReference
     private Adresa idAdreseSr;
     @JoinColumn(name = "ID_POTROSACA", referencedColumnName = "ID_POTROSACA")
     @ManyToOne
+    @JsonManagedReference
     private Potrosac idPotrosaca;
     @OneToMany(mappedBy = "idKupca")
+    @JsonBackReference
     private Collection<Korisnik> korisnikCollection;
 
     public Kupac() {

@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  *
  * @author Dane
@@ -53,10 +55,13 @@ public class Adresa implements Serializable {
     @Column(name = "BROJ")
     private String broj;
     @OneToMany(mappedBy = "idAdreseSr")
+    @JsonBackReference
     private Collection<Kupac> kupacCollection;
     @OneToMany(mappedBy = "idAdreseMm")
+    @JsonBackReference
     private Collection<MestoMerenja> mestoMerenjaCollection;
     @OneToMany(mappedBy = "idAdrese")
+    @JsonBackReference
     private Collection<Potrosac> potrosacCollection;
 
     public Adresa() {

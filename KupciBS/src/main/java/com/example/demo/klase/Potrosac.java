@@ -21,6 +21,10 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  *
  * @author Dane
@@ -29,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "POTROSAC")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Potrosac.findAll", query = "SELECT p FROM Potrosac p"),
+    @NamedQuery(name = "Potrosac.vratiSvePotrosace", query = "SELECT p FROM Potrosac p"),
     @NamedQuery(name = "Potrosac.findByIdPotrosaca", query = "SELECT p FROM Potrosac p WHERE p.idPotrosaca = :idPotrosaca"),
     @NamedQuery(name = "Potrosac.findByKategorijaPotrosnje", query = "SELECT p FROM Potrosac p WHERE p.kategorijaPotrosnje = :kategorijaPotrosnje"),
     @NamedQuery(name = "Potrosac.findByOdobrenaSnaga", query = "SELECT p FROM Potrosac p WHERE p.odobrenaSnaga = :odobrenaSnaga"),
@@ -53,13 +57,17 @@ public class Potrosac implements Serializable {
     @Column(name = "VRSTA_SNABDEVANJA")
     private String vrstaSnabdevanja;
     @OneToMany(mappedBy = "idPotrosaca")
+    @JsonBackReference
     private Collection<Kupac> kupacCollection;
     @OneToMany(mappedBy = "idPotrosaca")
+    @JsonBackReference
     private Collection<MestoMerenja> mestoMerenjaCollection;
     @JoinColumn(name = "ID_ADRESE", referencedColumnName = "ID_ADRESE")
     @ManyToOne
+    @JsonManagedReference
     private Adresa idAdrese;
     @OneToMany(mappedBy = "idPotrosaca")
+    @JsonBackReference
     private Collection<Racun> racunCollection;
 
     public Potrosac() {
@@ -131,7 +139,7 @@ public class Potrosac implements Serializable {
     public void setMestoMerenjaCollection(Collection<MestoMerenja> mestoMerenjaCollection) {
         this.mestoMerenjaCollection = mestoMerenjaCollection;
     }
-
+  
     public Adresa getIdAdrese() {
         return idAdrese;
     }

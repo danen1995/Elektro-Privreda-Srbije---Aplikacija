@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  *
@@ -50,6 +51,7 @@ public class Korisnik implements Serializable {
     private String korisnickoIme;
     @JoinColumn(name = "ID_KUPCA", referencedColumnName = "ID_KUPCA")
     @ManyToOne
+    @JsonManagedReference
     private Kupac idKupca;
 
     public Korisnik() {
@@ -88,7 +90,7 @@ public class Korisnik implements Serializable {
     public void setKorisnickoIme(String korisnickoIme) {
         this.korisnickoIme = korisnickoIme;
     }
-    @JsonIgnore
+   
     public Kupac getIdKupca() {
         return idKupca;
     }

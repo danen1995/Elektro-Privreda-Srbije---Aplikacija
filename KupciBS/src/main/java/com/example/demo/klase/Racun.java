@@ -26,6 +26,9 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  *
  * @author Dane
@@ -65,8 +68,10 @@ public class Racun implements Serializable {
     @Column(name = "RACUN")
     private Serializable racun;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "racun")
+    @JsonBackReference
     private Collection<StavkaRacuna> stavkaRacunaCollection;
     @OneToMany(mappedBy = "idRacuna")
+    @JsonBackReference
     private Collection<Uplata> uplataCollection;
     @JoinColumn(name = "ID_OP", referencedColumnName = "ID_OP")
     @ManyToOne
@@ -76,6 +81,7 @@ public class Racun implements Serializable {
     private Ocitavanje idOcitavanja;
     @JoinColumn(name = "ID_POTROSACA", referencedColumnName = "ID_POTROSACA")
     @ManyToOne
+    @JsonManagedReference
     private Potrosac idPotrosaca;
 
     public Racun() {
