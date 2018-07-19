@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @NamedQueries({
 
     @NamedQuery(name = "Racun.findAll", query = "SELECT r FROM Racun r"),
-    @NamedQuery(name = "Racun.vratiRacuneZaPotrosaca", query = "SELECT r FROM Racun r INNER JOIN Potrosac p on r.idPotrosaca=p.idPotrosaca WHERE r.idPotrosaca = ?1"),
+    @NamedQuery(name = "Racun.vratiRacuneZaPotrosaca", query = "SELECT r FROM Racun r WHERE r.idPotrosaca.idPotrosaca = ?1"),
     @NamedQuery(name = "Racun.findByIdRacuna", query = "SELECT r FROM Racun r WHERE r.idRacuna = :idRacuna"),
     @NamedQuery(name = "Racun.findByDatumIzdavanja", query = "SELECT r FROM Racun r WHERE r.datumIzdavanja = :datumIzdavanja"),
     @NamedQuery(name = "Racun.findByDatumPrometa", query = "SELECT r FROM Racun r WHERE r.datumPrometa = :datumPrometa"),
