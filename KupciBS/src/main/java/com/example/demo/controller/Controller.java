@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,6 +69,11 @@ public class Controller {
 	  @GetMapping("/vratiSveStavkeRacuna")
 	  public @ResponseBody List<StavkaRacuna> vratiSveStavkeRacuna(@RequestParam(value="idRacuna") BigDecimal idRacuna) {
 		  return stavkaRacunaRepository.vratiStavkeRacuna(idRacuna);
+	  }
+	  
+	  @PostMapping("/registracija")
+	  public @ResponseBody Korisnik registrujKorisnika(@RequestBody Korisnik k) {
+		  return korisnikRepository.save(k);
 	  }
 	  
 }
