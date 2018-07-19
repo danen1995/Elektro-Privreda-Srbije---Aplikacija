@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.klase.Korisnik;
-import com.example.demo.klase.Potrosac;
+import com.example.demo.klase.*;
+
 import com.example.demo.repository.KorisnikRepository;
+import com.example.demo.repository.KupacRepository;
 import com.example.demo.repository.PotrosacRepository;
+
+
 
 @RestController
 public class Controller {
@@ -20,6 +24,8 @@ public class Controller {
 	  KorisnikRepository korisnikRepository;
 	  @Autowired
 	  PotrosacRepository potrosacRepository;
+	  @Autowired
+	  KupacRepository kupacRepository;
 	  
 
 	  @GetMapping("/logovanje")
@@ -32,5 +38,10 @@ public class Controller {
 		  return potrosacRepository.vratiSvePotrosace();
 	  }
 	  
-
+		
+		@GetMapping("/osnovniPodaci")
+		  public @ResponseBody Kupac vrati(@RequestParam(value="korID") BigDecimal korID) {
+			  return kupacRepository.vratiOsnovnePodatke(korID);
+		  }
+		
 }

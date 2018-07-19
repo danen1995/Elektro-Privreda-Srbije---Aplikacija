@@ -34,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Kupac.findAll", query = "SELECT k FROM Kupac k"),
+    @NamedQuery(name = "Kupac.vratiOsnovnePodatke", query = "SELECT k from Kupac k INNER JOIN Korisnik kor ON k.idKupca = kor.idKupca WHERE kor.idKorisnika =?1"),
     @NamedQuery(name = "Kupac.findByIdKupca", query = "SELECT k FROM Kupac k WHERE k.idKupca = :idKupca"),
     @NamedQuery(name = "Kupac.findByNaziv", query = "SELECT k FROM Kupac k WHERE k.naziv = :naziv"),
     @NamedQuery(name = "Kupac.findByTip", query = "SELECT k FROM Kupac k WHERE k.tip = :tip"),
