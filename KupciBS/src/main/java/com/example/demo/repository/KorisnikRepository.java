@@ -14,5 +14,4 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Integer> {
 	public Korisnik logovanje(String user, String pass);
 
 
-
 }

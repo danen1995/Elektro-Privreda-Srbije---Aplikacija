@@ -1,5 +1,8 @@
 package com.example.demo.repository;
+import java.math.BigDecimal;
 import java.util.List;
+
+import javax.persistence.NamedQuery;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,5 +15,7 @@ public interface PotrosacRepository extends JpaRepository<Potrosac, Integer> {
 	
 
 	public List<Potrosac> vratiSvePotrosace();
-
+	
+	@Query("SELECT p from Potrosac p INNER JOIN Kupac k ON p.idPotrosaca = k.idPotrosaca WHERE k.idKupca =?1")
+	public List<Potrosac> vratiPotrosaceZaKupca(BigDecimal idKupca);
 }

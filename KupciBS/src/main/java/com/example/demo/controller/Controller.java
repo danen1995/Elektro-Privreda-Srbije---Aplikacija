@@ -39,9 +39,13 @@ public class Controller {
 	  }
 	  
 		
-		@GetMapping("/osnovniPodaci")
-		  public @ResponseBody Kupac vrati(@RequestParam(value="korID") BigDecimal korID) {
+	@GetMapping("/osnovniPodaci")
+		  public @ResponseBody Kupac vratiOsnovnePodatkeKorisnika(@RequestParam(value="korID") BigDecimal korID) {
 			  return kupacRepository.vratiOsnovnePodatke(korID);
 		  }
-		
+	
+		@GetMapping("/vratiPotrosaceZaKupca")
+		  public @ResponseBody List<Potrosac> vratiPotrosaceZaKupca(@RequestParam(value="idKupca") BigDecimal idKupca) {
+			  return potrosacRepository.vratiPotrosaceZaKupca(idKupca);
+		  }
 }
