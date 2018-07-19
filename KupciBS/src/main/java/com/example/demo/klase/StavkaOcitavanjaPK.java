@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  *
  * @author Dane
@@ -23,6 +25,7 @@ public class StavkaOcitavanjaPK implements Serializable {
     private BigInteger idStavkeOc;
     @Basic(optional = false)
     @Column(name = "ID_OCITAVANJA")
+    @JsonManagedReference
     private BigInteger idOcitavanja;
 
     public StavkaOcitavanjaPK() {

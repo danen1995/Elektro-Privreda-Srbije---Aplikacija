@@ -22,6 +22,8 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  *
  * @author Dane
@@ -66,6 +68,7 @@ public class ObracunskiPeriod implements Serializable {
     @Column(name = "NAZIV_PERIODA")
     private String nazivPerioda;
     @OneToMany(mappedBy = "idOp")
+    @JsonBackReference
     private Collection<Racun> racunCollection;
 
     public ObracunskiPeriod() {

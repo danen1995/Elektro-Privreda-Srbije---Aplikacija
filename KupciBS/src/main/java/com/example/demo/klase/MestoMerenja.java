@@ -56,6 +56,7 @@ public class MestoMerenja implements Serializable {
     private Collection<Ocitavanje> ocitavanjeCollection;
     @JoinColumn(name = "ID_ADRESE_MM", referencedColumnName = "ID_ADRESE")
     @ManyToOne
+    @JsonManagedReference
     private Adresa idAdreseMm;
     @JoinColumn(name = "ID_POTROSACA", referencedColumnName = "ID_POTROSACA")
     @ManyToOne

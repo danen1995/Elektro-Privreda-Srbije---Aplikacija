@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  *
  * @author Dane
@@ -41,6 +43,7 @@ public class TipStavkeRacuna implements Serializable {
     @Column(name = "NAZIV")
     private String naziv;
     @OneToMany(mappedBy = "idTipa")
+    @JsonBackReference
     private Collection<StavkaRacuna> stavkaRacunaCollection;
 
     public TipStavkeRacuna() {

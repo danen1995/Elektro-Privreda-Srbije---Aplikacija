@@ -1,4 +1,5 @@
 /*
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -18,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  *
@@ -47,6 +50,7 @@ public class Tarifa implements Serializable {
     @Column(name = "CENA")
     private BigDecimal cena;
     @OneToMany(mappedBy = "idTarife")
+    @JsonBackReference
     private Collection<StavkaOcitavanja> stavkaOcitavanjaCollection;
 
     public Tarifa() {

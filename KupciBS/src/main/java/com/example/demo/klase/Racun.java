@@ -75,9 +75,11 @@ public class Racun implements Serializable {
     private Collection<Uplata> uplataCollection;
     @JoinColumn(name = "ID_OP", referencedColumnName = "ID_OP")
     @ManyToOne
+    @JsonManagedReference
     private ObracunskiPeriod idOp;
     @JoinColumn(name = "ID_OCITAVANJA", referencedColumnName = "ID_OCITAVANJA")
     @ManyToOne
+    @JsonManagedReference
     private Ocitavanje idOcitavanja;
     @JoinColumn(name = "ID_POTROSACA", referencedColumnName = "ID_POTROSACA")
     @ManyToOne

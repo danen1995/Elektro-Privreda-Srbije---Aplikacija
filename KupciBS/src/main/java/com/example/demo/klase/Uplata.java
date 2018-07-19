@@ -21,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  *
  * @author Dane
@@ -48,6 +50,7 @@ public class Uplata implements Serializable {
     private BigDecimal iznos;
     @JoinColumn(name = "ID_RACUNA", referencedColumnName = "ID_RACUNA")
     @ManyToOne
+    @JsonManagedReference
     private Racun idRacuna;
 
     public Uplata() {

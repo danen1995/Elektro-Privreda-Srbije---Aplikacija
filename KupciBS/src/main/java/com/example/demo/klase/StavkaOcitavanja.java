@@ -17,6 +17,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  *
  * @author Dane
@@ -41,6 +43,7 @@ public class StavkaOcitavanja implements Serializable {
     private Ocitavanje ocitavanje;
     @JoinColumn(name = "ID_TARIFE", referencedColumnName = "ID_TARIFE")
     @ManyToOne
+    @JsonManagedReference
     private Tarifa idTarife;
 
     public StavkaOcitavanja() {

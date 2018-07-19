@@ -23,6 +23,9 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  *
  * @author Dane
@@ -55,10 +58,13 @@ public class Ocitavanje implements Serializable {
     private BigInteger novoMt;
     @JoinColumn(name = "ID_MM", referencedColumnName = "ID_MM")
     @ManyToOne
+    @JsonManagedReference
     private MestoMerenja idMm;
     @OneToMany(mappedBy = "idOcitavanja")
+    @JsonBackReference
     private Collection<Racun> racunCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ocitavanje")
+    @JsonBackReference
     private Collection<StavkaOcitavanja> stavkaOcitavanjaCollection;
 
     public Ocitavanje() {
