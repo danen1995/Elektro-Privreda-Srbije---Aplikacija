@@ -31,10 +31,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @NamedQueries({
     @NamedQuery(name = "Adresa.findAll", query = "SELECT a FROM Adresa a"),
     @NamedQuery(name = "Adresa.findByIdAdrese", query = "SELECT a FROM Adresa a WHERE a.idAdrese = :idAdrese"),
+    @NamedQuery(name = "Adresa.findByBroj", query = "SELECT a FROM Adresa a WHERE a.broj = :broj"),
     @NamedQuery(name = "Adresa.findByGrad", query = "SELECT a FROM Adresa a WHERE a.grad = :grad"),
     @NamedQuery(name = "Adresa.findByOpstina", query = "SELECT a FROM Adresa a WHERE a.opstina = :opstina"),
-    @NamedQuery(name = "Adresa.findByUlica", query = "SELECT a FROM Adresa a WHERE a.ulica = :ulica"),
-    @NamedQuery(name = "Adresa.findByBroj", query = "SELECT a FROM Adresa a WHERE a.broj = :broj")})
+    @NamedQuery(name = "Adresa.findByUlica", query = "SELECT a FROM Adresa a WHERE a.ulica = :ulica")})
 public class Adresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +44,9 @@ public class Adresa implements Serializable {
     @Column(name = "ID_ADRESE")
     private BigDecimal idAdrese;
     @Basic(optional = false)
+    @Column(name = "BROJ")
+    private String broj;
+    @Basic(optional = false)
     @Column(name = "GRAD")
     private String grad;
     @Column(name = "OPSTINA")
@@ -51,16 +54,10 @@ public class Adresa implements Serializable {
     @Basic(optional = false)
     @Column(name = "ULICA")
     private String ulica;
-    @Basic(optional = false)
-    @Column(name = "BROJ")
-    private String broj;
     @OneToMany(mappedBy = "idAdreseSr")
     @JsonBackReference
     private Collection<Kupac> kupacCollection;
     @OneToMany(mappedBy = "idAdreseMm")
-    @JsonBackReference
-    private Collection<MestoMerenja> mestoMerenjaCollection;
-    @OneToMany(mappedBy = "idAdrese")
     @JsonBackReference
     private Collection<Potrosac> potrosacCollection;
 
@@ -71,11 +68,11 @@ public class Adresa implements Serializable {
         this.idAdrese = idAdrese;
     }
 
-    public Adresa(BigDecimal idAdrese, String grad, String ulica, String broj) {
+    public Adresa(BigDecimal idAdrese, String broj, String grad, String ulica) {
         this.idAdrese = idAdrese;
+        this.broj = broj;
         this.grad = grad;
         this.ulica = ulica;
-        this.broj = broj;
     }
 
     public BigDecimal getIdAdrese() {
@@ -84,6 +81,14 @@ public class Adresa implements Serializable {
 
     public void setIdAdrese(BigDecimal idAdrese) {
         this.idAdrese = idAdrese;
+    }
+
+    public String getBroj() {
+        return broj;
+    }
+
+    public void setBroj(String broj) {
+        this.broj = broj;
     }
 
     public String getGrad() {
@@ -110,14 +115,6 @@ public class Adresa implements Serializable {
         this.ulica = ulica;
     }
 
-    public String getBroj() {
-        return broj;
-    }
-
-    public void setBroj(String broj) {
-        this.broj = broj;
-    }
-
     @XmlTransient
     public Collection<Kupac> getKupacCollection() {
         return kupacCollection;
@@ -125,15 +122,6 @@ public class Adresa implements Serializable {
 
     public void setKupacCollection(Collection<Kupac> kupacCollection) {
         this.kupacCollection = kupacCollection;
-    }
-
-    @XmlTransient
-    public Collection<MestoMerenja> getMestoMerenjaCollection() {
-        return mestoMerenjaCollection;
-    }
-
-    public void setMestoMerenjaCollection(Collection<MestoMerenja> mestoMerenjaCollection) {
-        this.mestoMerenjaCollection = mestoMerenjaCollection;
     }
 
     @XmlTransient
@@ -167,7 +155,7 @@ public class Adresa implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.Adresa[ idAdrese=" + idAdrese + " ]";
+        return "klase.Adresa[ idAdrese=" + idAdrese + " ]";
     }
     
 }

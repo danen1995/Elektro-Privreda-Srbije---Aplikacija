@@ -7,7 +7,6 @@ package com.example.demo.klase;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -36,13 +35,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "Kupac.findAll", query = "SELECT k FROM Kupac k"),
     @NamedQuery(name = "Kupac.vratiOsnovnePodatke", query = "SELECT k from Kupac k INNER JOIN Korisnik kor ON k.idKupca = kor.idKupca WHERE kor.idKorisnika =?1"),
     @NamedQuery(name = "Kupac.findByIdKupca", query = "SELECT k FROM Kupac k WHERE k.idKupca = :idKupca"),
-    @NamedQuery(name = "Kupac.findByNaziv", query = "SELECT k FROM Kupac k WHERE k.naziv = :naziv"),
-    @NamedQuery(name = "Kupac.findByTip", query = "SELECT k FROM Kupac k WHERE k.tip = :tip"),
     @NamedQuery(name = "Kupac.findByJmbg", query = "SELECT k FROM Kupac k WHERE k.jmbg = :jmbg"),
-    @NamedQuery(name = "Kupac.findByPib", query = "SELECT k FROM Kupac k WHERE k.pib = :pib"),
-    @NamedQuery(name = "Kupac.findByNaplatniBroj", query = "SELECT k FROM Kupac k WHERE k.naplatniBroj = :naplatniBroj"),
     @NamedQuery(name = "Kupac.findByMaticniBroj", query = "SELECT k FROM Kupac k WHERE k.maticniBroj = :maticniBroj"),
-    @NamedQuery(name = "Kupac.findByProsireniNaziv", query = "SELECT k FROM Kupac k WHERE k.prosireniNaziv = :prosireniNaziv")})
+    @NamedQuery(name = "Kupac.findByNaplatniBroj", query = "SELECT k FROM Kupac k WHERE k.naplatniBroj = :naplatniBroj"),
+    @NamedQuery(name = "Kupac.findByNaziv", query = "SELECT k FROM Kupac k WHERE k.naziv = :naziv"),
+    @NamedQuery(name = "Kupac.findByPib", query = "SELECT k FROM Kupac k WHERE k.pib = :pib"),
+    @NamedQuery(name = "Kupac.findByProsireniNaziv", query = "SELECT k FROM Kupac k WHERE k.prosireniNaziv = :prosireniNaziv"),
+    @NamedQuery(name = "Kupac.findByTip", query = "SELECT k FROM Kupac k WHERE k.tip = :tip")})
 public class Kupac implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,34 +50,30 @@ public class Kupac implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_KUPCA")
     private BigDecimal idKupca;
-    @Basic(optional = false)
-    @Column(name = "NAZIV")
-    private String naziv;
-    @Basic(optional = false)
-    @Column(name = "TIP")
-    private String tip;
     @Column(name = "JMBG")
     private String jmbg;
-    @Column(name = "PIB")
-    private BigInteger pib;
+    @Column(name = "MATICNI_BROJ")
+    private String maticniBroj;
     @Basic(optional = false)
     @Column(name = "NAPLATNI_BROJ")
     private String naplatniBroj;
-    @Column(name = "MATICNI_BROJ")
-    private String maticniBroj;
+    @Basic(optional = false)
+    @Column(name = "NAZIV")
+    private String naziv;
+    @Column(name = "PIB")
+    private BigDecimal pib;
     @Column(name = "PROSIRENI_NAZIV")
     private String prosireniNaziv;
+    @Basic(optional = false)
+    @Column(name = "TIP")
+    private String tip;
     @JoinColumn(name = "ID_ADRESE_SR", referencedColumnName = "ID_ADRESE")
     @ManyToOne
     @JsonManagedReference
     private Adresa idAdreseSr;
-    @JoinColumn(name = "ID_POTROSACA", referencedColumnName = "ID_POTROSACA")
-    @ManyToOne
-    @JsonManagedReference
-    private Potrosac idPotrosaca;
     @OneToMany(mappedBy = "idKupca")
     @JsonBackReference
-    private Collection<Korisnik> korisnikCollection;
+    private Collection<Potrosac> potrosacCollection;
 
     public Kupac() {
     }
@@ -87,11 +82,11 @@ public class Kupac implements Serializable {
         this.idKupca = idKupca;
     }
 
-    public Kupac(BigDecimal idKupca, String naziv, String tip, String naplatniBroj) {
+    public Kupac(BigDecimal idKupca, String naplatniBroj, String naziv, String tip) {
         this.idKupca = idKupca;
+        this.naplatniBroj = naplatniBroj;
         this.naziv = naziv;
         this.tip = tip;
-        this.naplatniBroj = naplatniBroj;
     }
 
     public BigDecimal getIdKupca() {
@@ -102,44 +97,12 @@ public class Kupac implements Serializable {
         this.idKupca = idKupca;
     }
 
-    public String getNaziv() {
-        return naziv;
-    }
-
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
-    }
-
-    public String getTip() {
-        return tip;
-    }
-
-    public void setTip(String tip) {
-        this.tip = tip;
-    }
-
     public String getJmbg() {
         return jmbg;
     }
 
     public void setJmbg(String jmbg) {
         this.jmbg = jmbg;
-    }
-
-    public BigInteger getPib() {
-        return pib;
-    }
-
-    public void setPib(BigInteger pib) {
-        this.pib = pib;
-    }
-
-    public String getNaplatniBroj() {
-        return naplatniBroj;
-    }
-
-    public void setNaplatniBroj(String naplatniBroj) {
-        this.naplatniBroj = naplatniBroj;
     }
 
     public String getMaticniBroj() {
@@ -150,12 +113,44 @@ public class Kupac implements Serializable {
         this.maticniBroj = maticniBroj;
     }
 
+    public String getNaplatniBroj() {
+        return naplatniBroj;
+    }
+
+    public void setNaplatniBroj(String naplatniBroj) {
+        this.naplatniBroj = naplatniBroj;
+    }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
+
+    public BigDecimal getPib() {
+        return pib;
+    }
+
+    public void setPib(BigDecimal pib) {
+        this.pib = pib;
+    }
+
     public String getProsireniNaziv() {
         return prosireniNaziv;
     }
 
     public void setProsireniNaziv(String prosireniNaziv) {
         this.prosireniNaziv = prosireniNaziv;
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
     }
 
     public Adresa getIdAdreseSr() {
@@ -166,21 +161,13 @@ public class Kupac implements Serializable {
         this.idAdreseSr = idAdreseSr;
     }
 
-    public Potrosac getIdPotrosaca() {
-        return idPotrosaca;
-    }
-
-    public void setIdPotrosaca(Potrosac idPotrosaca) {
-        this.idPotrosaca = idPotrosaca;
-    }
-
     @XmlTransient
-    public Collection<Korisnik> getKorisnikCollection() {
-        return korisnikCollection;
+    public Collection<Potrosac> getPotrosacCollection() {
+        return potrosacCollection;
     }
 
-    public void setKorisnikCollection(Collection<Korisnik> korisnikCollection) {
-        this.korisnikCollection = korisnikCollection;
+    public void setPotrosacCollection(Collection<Potrosac> potrosacCollection) {
+        this.potrosacCollection = potrosacCollection;
     }
 
     @Override
@@ -205,7 +192,7 @@ public class Kupac implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.Kupac[ idKupca=" + idKupca + " ]";
+        return "klase.Kupac[ idKupca=" + idKupca + " ]";
     }
     
 }
