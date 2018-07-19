@@ -7,7 +7,6 @@ package com.example.demo.klase;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -35,8 +34,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @NamedQueries({
     @NamedQuery(name = "MestoMerenja.findAll", query = "SELECT m FROM MestoMerenja m"),
     @NamedQuery(name = "MestoMerenja.findByIdMm", query = "SELECT m FROM MestoMerenja m WHERE m.idMm = :idMm"),
-    @NamedQuery(name = "MestoMerenja.findByBrBrojila", query = "SELECT m FROM MestoMerenja m WHERE m.brBrojila = :brBrojila"),
-    @NamedQuery(name = "MestoMerenja.findByObracunskaSnaga", query = "SELECT m FROM MestoMerenja m WHERE m.obracunskaSnaga = :obracunskaSnaga")})
+    @NamedQuery(name = "MestoMerenja.findByBrBrojila", query = "SELECT m FROM MestoMerenja m WHERE m.brBrojila = :brBrojila")})
 public class MestoMerenja implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,10 +45,7 @@ public class MestoMerenja implements Serializable {
     private BigDecimal idMm;
     @Basic(optional = false)
     @Column(name = "BR_BROJILA")
-    private BigInteger brBrojila;
-    @Basic(optional = false)
-    @Column(name = "OBRACUNSKA_SNAGA")
-    private BigInteger obracunskaSnaga;
+    private BigDecimal brBrojila;
     @OneToMany(mappedBy = "idMm")
     @JsonBackReference
     private Collection<Ocitavanje> ocitavanjeCollection;
@@ -58,6 +53,10 @@ public class MestoMerenja implements Serializable {
     @ManyToOne
     @JsonManagedReference
     private Adresa idAdreseMm;
+    @JoinColumn(name = "ID_OBRACUNSKE_SNAGE", referencedColumnName = "ID_OBRACUNSKE_SNAGE")
+    @ManyToOne
+    @JsonManagedReference
+    private ObracunskaSnaga idObracunskeSnage;
     @JoinColumn(name = "ID_POTROSACA", referencedColumnName = "ID_POTROSACA")
     @ManyToOne
     @JsonManagedReference
@@ -70,10 +69,9 @@ public class MestoMerenja implements Serializable {
         this.idMm = idMm;
     }
 
-    public MestoMerenja(BigDecimal idMm, BigInteger brBrojila, BigInteger obracunskaSnaga) {
+    public MestoMerenja(BigDecimal idMm, BigDecimal brBrojila) {
         this.idMm = idMm;
         this.brBrojila = brBrojila;
-        this.obracunskaSnaga = obracunskaSnaga;
     }
 
     public BigDecimal getIdMm() {
@@ -84,20 +82,12 @@ public class MestoMerenja implements Serializable {
         this.idMm = idMm;
     }
 
-    public BigInteger getBrBrojila() {
+    public BigDecimal getBrBrojila() {
         return brBrojila;
     }
 
-    public void setBrBrojila(BigInteger brBrojila) {
+    public void setBrBrojila(BigDecimal brBrojila) {
         this.brBrojila = brBrojila;
-    }
-
-    public BigInteger getObracunskaSnaga() {
-        return obracunskaSnaga;
-    }
-
-    public void setObracunskaSnaga(BigInteger obracunskaSnaga) {
-        this.obracunskaSnaga = obracunskaSnaga;
     }
 
     @XmlTransient
@@ -115,6 +105,14 @@ public class MestoMerenja implements Serializable {
 
     public void setIdAdreseMm(Adresa idAdreseMm) {
         this.idAdreseMm = idAdreseMm;
+    }
+
+    public ObracunskaSnaga getIdObracunskeSnage() {
+        return idObracunskeSnage;
+    }
+
+    public void setIdObracunskeSnage(ObracunskaSnaga idObracunskeSnage) {
+        this.idObracunskeSnage = idObracunskeSnage;
     }
 
     public Potrosac getIdPotrosaca() {
@@ -147,7 +145,7 @@ public class MestoMerenja implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.MestoMerenja[ idMm=" + idMm + " ]";
+        return "com.example.demo.klase.MestoMerenja[ idMm=" + idMm + " ]";
     }
     
 }

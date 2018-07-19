@@ -18,7 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -30,11 +29,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Korisnik.findAll", query = "SELECT k FROM Korisnik k"),
-    @NamedQuery(name = "Korisnik.logovanje", query = "SELECT k FROM Korisnik k WHERE k.korisnickoIme = ?1 AND k.lozinka = ?2"),
-    @NamedQuery(name = "Korisnik.logovanje1", query = "SELECT k FROM Korisnik k WHERE k.korisnickoIme = ?1"),
     @NamedQuery(name = "Korisnik.findByIdKorisnika", query = "SELECT k FROM Korisnik k WHERE k.idKorisnika = :idKorisnika"),
-    @NamedQuery(name = "Korisnik.findByLozinka", query = "SELECT k FROM Korisnik k WHERE k.lozinka = :lozinka"),
-    @NamedQuery(name = "Korisnik.findByKorisnickoIme", query = "SELECT k FROM Korisnik k WHERE k.korisnickoIme = :korisnickoIme")})
+    @NamedQuery(name = "Korisnik.logovanje", query = "SELECT k FROM Korisnik k WHERE k.korisnickoIme = ?1 AND k.lozinka = ?2"),
+    @NamedQuery(name = "Korisnik.findByLozinka", query = "SELECT k FROM Korisnik k WHERE k.lozinka = :lozinka")})
 public class Korisnik implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,11 +41,11 @@ public class Korisnik implements Serializable {
     @Column(name = "ID_KORISNIKA")
     private BigDecimal idKorisnika;
     @Basic(optional = false)
-    @Column(name = "LOZINKA")
-    private String lozinka;
-    @Basic(optional = false)
     @Column(name = "KORISNICKO_IME")
     private String korisnickoIme;
+    @Basic(optional = false)
+    @Column(name = "LOZINKA")
+    private String lozinka;
     @JoinColumn(name = "ID_KUPCA", referencedColumnName = "ID_KUPCA")
     @ManyToOne
     @JsonManagedReference
@@ -61,10 +58,10 @@ public class Korisnik implements Serializable {
         this.idKorisnika = idKorisnika;
     }
 
-    public Korisnik(BigDecimal idKorisnika, String lozinka, String korisnickoIme) {
+    public Korisnik(BigDecimal idKorisnika, String korisnickoIme, String lozinka) {
         this.idKorisnika = idKorisnika;
-        this.lozinka = lozinka;
         this.korisnickoIme = korisnickoIme;
+        this.lozinka = lozinka;
     }
 
     public BigDecimal getIdKorisnika() {
@@ -75,6 +72,14 @@ public class Korisnik implements Serializable {
         this.idKorisnika = idKorisnika;
     }
 
+    public String getKorisnickoIme() {
+        return korisnickoIme;
+    }
+
+    public void setKorisnickoIme(String korisnickoIme) {
+        this.korisnickoIme = korisnickoIme;
+    }
+
     public String getLozinka() {
         return lozinka;
     }
@@ -83,14 +88,6 @@ public class Korisnik implements Serializable {
         this.lozinka = lozinka;
     }
 
-    public String getKorisnickoIme() {
-        return korisnickoIme;
-    }
-
-    public void setKorisnickoIme(String korisnickoIme) {
-        this.korisnickoIme = korisnickoIme;
-    }
-   
     public Kupac getIdKupca() {
         return idKupca;
     }
@@ -121,7 +118,7 @@ public class Korisnik implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.Korisnik[ idKorisnika=" + idKorisnika + " ]";
+        return "com.example.demo.klase.Korisnik[ idKorisnika=" + idKorisnika + " ]";
     }
     
 }

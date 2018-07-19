@@ -34,11 +34,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @NamedQueries({
     @NamedQuery(name = "ObracunskiPeriod.findAll", query = "SELECT o FROM ObracunskiPeriod o"),
     @NamedQuery(name = "ObracunskiPeriod.findByIdOp", query = "SELECT o FROM ObracunskiPeriod o WHERE o.idOp = :idOp"),
-    @NamedQuery(name = "ObracunskiPeriod.findByMesec", query = "SELECT o FROM ObracunskiPeriod o WHERE o.mesec = :mesec"),
-    @NamedQuery(name = "ObracunskiPeriod.findByGodina", query = "SELECT o FROM ObracunskiPeriod o WHERE o.godina = :godina"),
-    @NamedQuery(name = "ObracunskiPeriod.findByDatumOd", query = "SELECT o FROM ObracunskiPeriod o WHERE o.datumOd = :datumOd"),
-    @NamedQuery(name = "ObracunskiPeriod.findByDatumDo", query = "SELECT o FROM ObracunskiPeriod o WHERE o.datumDo = :datumDo"),
     @NamedQuery(name = "ObracunskiPeriod.findByBrojDana", query = "SELECT o FROM ObracunskiPeriod o WHERE o.brojDana = :brojDana"),
+    @NamedQuery(name = "ObracunskiPeriod.findByDatumDo", query = "SELECT o FROM ObracunskiPeriod o WHERE o.datumDo = :datumDo"),
+    @NamedQuery(name = "ObracunskiPeriod.findByDatumOd", query = "SELECT o FROM ObracunskiPeriod o WHERE o.datumOd = :datumOd"),
+    @NamedQuery(name = "ObracunskiPeriod.findByGodina", query = "SELECT o FROM ObracunskiPeriod o WHERE o.godina = :godina"),
+    @NamedQuery(name = "ObracunskiPeriod.findByMesec", query = "SELECT o FROM ObracunskiPeriod o WHERE o.mesec = :mesec"),
     @NamedQuery(name = "ObracunskiPeriod.findByNazivPerioda", query = "SELECT o FROM ObracunskiPeriod o WHERE o.nazivPerioda = :nazivPerioda")})
 public class ObracunskiPeriod implements Serializable {
 
@@ -49,22 +49,22 @@ public class ObracunskiPeriod implements Serializable {
     @Column(name = "ID_OP")
     private BigDecimal idOp;
     @Basic(optional = false)
-    @Column(name = "MESEC")
-    private String mesec;
-    @Basic(optional = false)
-    @Column(name = "GODINA")
-    private short godina;
-    @Basic(optional = false)
-    @Column(name = "DATUM_OD")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date datumOd;
+    @Column(name = "BROJ_DANA")
+    private int brojDana;
     @Basic(optional = false)
     @Column(name = "DATUM_DO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datumDo;
     @Basic(optional = false)
-    @Column(name = "BROJ_DANA")
-    private short brojDana;
+    @Column(name = "DATUM_OD")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datumOd;
+    @Basic(optional = false)
+    @Column(name = "GODINA")
+    private int godina;
+    @Basic(optional = false)
+    @Column(name = "MESEC")
+    private String mesec;
     @Column(name = "NAZIV_PERIODA")
     private String nazivPerioda;
     @OneToMany(mappedBy = "idOp")
@@ -78,13 +78,13 @@ public class ObracunskiPeriod implements Serializable {
         this.idOp = idOp;
     }
 
-    public ObracunskiPeriod(BigDecimal idOp, String mesec, short godina, Date datumOd, Date datumDo, short brojDana) {
+    public ObracunskiPeriod(BigDecimal idOp, int brojDana, Date datumDo, Date datumOd, int godina, String mesec) {
         this.idOp = idOp;
-        this.mesec = mesec;
-        this.godina = godina;
-        this.datumOd = datumOd;
-        this.datumDo = datumDo;
         this.brojDana = brojDana;
+        this.datumDo = datumDo;
+        this.datumOd = datumOd;
+        this.godina = godina;
+        this.mesec = mesec;
     }
 
     public BigDecimal getIdOp() {
@@ -95,28 +95,12 @@ public class ObracunskiPeriod implements Serializable {
         this.idOp = idOp;
     }
 
-    public String getMesec() {
-        return mesec;
+    public int getBrojDana() {
+        return brojDana;
     }
 
-    public void setMesec(String mesec) {
-        this.mesec = mesec;
-    }
-
-    public short getGodina() {
-        return godina;
-    }
-
-    public void setGodina(short godina) {
-        this.godina = godina;
-    }
-
-    public Date getDatumOd() {
-        return datumOd;
-    }
-
-    public void setDatumOd(Date datumOd) {
-        this.datumOd = datumOd;
+    public void setBrojDana(int brojDana) {
+        this.brojDana = brojDana;
     }
 
     public Date getDatumDo() {
@@ -127,12 +111,28 @@ public class ObracunskiPeriod implements Serializable {
         this.datumDo = datumDo;
     }
 
-    public short getBrojDana() {
-        return brojDana;
+    public Date getDatumOd() {
+        return datumOd;
     }
 
-    public void setBrojDana(short brojDana) {
-        this.brojDana = brojDana;
+    public void setDatumOd(Date datumOd) {
+        this.datumOd = datumOd;
+    }
+
+    public int getGodina() {
+        return godina;
+    }
+
+    public void setGodina(int godina) {
+        this.godina = godina;
+    }
+
+    public String getMesec() {
+        return mesec;
+    }
+
+    public void setMesec(String mesec) {
+        this.mesec = mesec;
     }
 
     public String getNazivPerioda() {
@@ -174,7 +174,7 @@ public class ObracunskiPeriod implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.ObracunskiPeriod[ idOp=" + idOp + " ]";
+        return "com.example.demo.klase.ObracunskiPeriod[ idOp=" + idOp + " ]";
     }
     
 }

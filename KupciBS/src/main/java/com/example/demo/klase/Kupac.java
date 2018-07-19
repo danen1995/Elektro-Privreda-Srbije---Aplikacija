@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  *
@@ -33,11 +32,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Kupac.findAll", query = "SELECT k FROM Kupac k"),
-    @NamedQuery(name = "Kupac.vratiOsnovnePodatke", query = "SELECT k from Kupac k INNER JOIN Korisnik kor ON k.idKupca = kor.idKupca WHERE kor.idKorisnika =?1"),
     @NamedQuery(name = "Kupac.findByIdKupca", query = "SELECT k FROM Kupac k WHERE k.idKupca = :idKupca"),
     @NamedQuery(name = "Kupac.findByJmbg", query = "SELECT k FROM Kupac k WHERE k.jmbg = :jmbg"),
     @NamedQuery(name = "Kupac.findByMaticniBroj", query = "SELECT k FROM Kupac k WHERE k.maticniBroj = :maticniBroj"),
-    @NamedQuery(name = "Kupac.findByNaplatniBroj", query = "SELECT k FROM Kupac k WHERE k.naplatniBroj = :naplatniBroj"),
+    @NamedQuery(name = "Kupac.vratiOsnovnePodatke", query = "SELECT k from Kupac k INNER JOIN Korisnik kor ON k.idKupca = kor.idKupca WHERE kor.idKorisnika =?1"),
     @NamedQuery(name = "Kupac.findByNaziv", query = "SELECT k FROM Kupac k WHERE k.naziv = :naziv"),
     @NamedQuery(name = "Kupac.findByPib", query = "SELECT k FROM Kupac k WHERE k.pib = :pib"),
     @NamedQuery(name = "Kupac.findByProsireniNaziv", query = "SELECT k FROM Kupac k WHERE k.prosireniNaziv = :prosireniNaziv"),
@@ -69,8 +67,10 @@ public class Kupac implements Serializable {
     private String tip;
     @JoinColumn(name = "ID_ADRESE_SR", referencedColumnName = "ID_ADRESE")
     @ManyToOne
-    @JsonManagedReference
     private Adresa idAdreseSr;
+    @OneToMany(mappedBy = "idKupca")
+    @JsonBackReference
+    private Collection<Korisnik> korisnikCollection;
     @OneToMany(mappedBy = "idKupca")
     @JsonBackReference
     private Collection<Potrosac> potrosacCollection;
@@ -162,6 +162,15 @@ public class Kupac implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Korisnik> getKorisnikCollection() {
+        return korisnikCollection;
+    }
+
+    public void setKorisnikCollection(Collection<Korisnik> korisnikCollection) {
+        this.korisnikCollection = korisnikCollection;
+    }
+
+    @XmlTransient
     public Collection<Potrosac> getPotrosacCollection() {
         return potrosacCollection;
     }
@@ -192,7 +201,7 @@ public class Kupac implements Serializable {
 
     @Override
     public String toString() {
-        return "klase.Kupac[ idKupca=" + idKupca + " ]";
+        return "com.example.demo.klase.Kupac[ idKupca=" + idKupca + " ]";
     }
     
 }

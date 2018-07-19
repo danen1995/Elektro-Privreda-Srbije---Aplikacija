@@ -57,4 +57,9 @@ public class Controller {
 		  return racunRepository.vratiRacuneZaPotrosaca(idPotrosaca);
 	  }
 	  
+	  @GetMapping("/vratiSveRacune")
+	  public @ResponseBody List<Racun> vratiSveRacune() {
+		  return racunRepository.findAll();
+	  }
+	  
 }

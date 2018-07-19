@@ -7,7 +7,6 @@ package com.example.demo.klase;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -36,10 +35,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @NamedQueries({
     @NamedQuery(name = "Ocitavanje.findAll", query = "SELECT o FROM Ocitavanje o"),
     @NamedQuery(name = "Ocitavanje.findByIdOcitavanja", query = "SELECT o FROM Ocitavanje o WHERE o.idOcitavanja = :idOcitavanja"),
-    @NamedQuery(name = "Ocitavanje.findByPrethodnoVt", query = "SELECT o FROM Ocitavanje o WHERE o.prethodnoVt = :prethodnoVt"),
-    @NamedQuery(name = "Ocitavanje.findByPrethodnoMt", query = "SELECT o FROM Ocitavanje o WHERE o.prethodnoMt = :prethodnoMt"),
+    @NamedQuery(name = "Ocitavanje.findByNovoMt", query = "SELECT o FROM Ocitavanje o WHERE o.novoMt = :novoMt"),
     @NamedQuery(name = "Ocitavanje.findByNovoVt", query = "SELECT o FROM Ocitavanje o WHERE o.novoVt = :novoVt"),
-    @NamedQuery(name = "Ocitavanje.findByNovoMt", query = "SELECT o FROM Ocitavanje o WHERE o.novoMt = :novoMt")})
+    @NamedQuery(name = "Ocitavanje.findByPrethodnoMt", query = "SELECT o FROM Ocitavanje o WHERE o.prethodnoMt = :prethodnoMt"),
+    @NamedQuery(name = "Ocitavanje.findByPrethodnoVt", query = "SELECT o FROM Ocitavanje o WHERE o.prethodnoVt = :prethodnoVt")})
 public class Ocitavanje implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,14 +47,14 @@ public class Ocitavanje implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_OCITAVANJA")
     private BigDecimal idOcitavanja;
-    @Column(name = "PRETHODNO_VT")
-    private BigInteger prethodnoVt;
-    @Column(name = "PRETHODNO_MT")
-    private BigInteger prethodnoMt;
-    @Column(name = "NOVO_VT")
-    private BigInteger novoVt;
     @Column(name = "NOVO_MT")
-    private BigInteger novoMt;
+    private BigDecimal novoMt;
+    @Column(name = "NOVO_VT")
+    private BigDecimal novoVt;
+    @Column(name = "PRETHODNO_MT")
+    private BigDecimal prethodnoMt;
+    @Column(name = "PRETHODNO_VT")
+    private BigDecimal prethodnoVt;
     @JoinColumn(name = "ID_MM", referencedColumnName = "ID_MM")
     @ManyToOne
     @JsonManagedReference
@@ -82,36 +81,36 @@ public class Ocitavanje implements Serializable {
         this.idOcitavanja = idOcitavanja;
     }
 
-    public BigInteger getPrethodnoVt() {
-        return prethodnoVt;
-    }
-
-    public void setPrethodnoVt(BigInteger prethodnoVt) {
-        this.prethodnoVt = prethodnoVt;
-    }
-
-    public BigInteger getPrethodnoMt() {
-        return prethodnoMt;
-    }
-
-    public void setPrethodnoMt(BigInteger prethodnoMt) {
-        this.prethodnoMt = prethodnoMt;
-    }
-
-    public BigInteger getNovoVt() {
-        return novoVt;
-    }
-
-    public void setNovoVt(BigInteger novoVt) {
-        this.novoVt = novoVt;
-    }
-
-    public BigInteger getNovoMt() {
+    public BigDecimal getNovoMt() {
         return novoMt;
     }
 
-    public void setNovoMt(BigInteger novoMt) {
+    public void setNovoMt(BigDecimal novoMt) {
         this.novoMt = novoMt;
+    }
+
+    public BigDecimal getNovoVt() {
+        return novoVt;
+    }
+
+    public void setNovoVt(BigDecimal novoVt) {
+        this.novoVt = novoVt;
+    }
+
+    public BigDecimal getPrethodnoMt() {
+        return prethodnoMt;
+    }
+
+    public void setPrethodnoMt(BigDecimal prethodnoMt) {
+        this.prethodnoMt = prethodnoMt;
+    }
+
+    public BigDecimal getPrethodnoVt() {
+        return prethodnoVt;
+    }
+
+    public void setPrethodnoVt(BigDecimal prethodnoVt) {
+        this.prethodnoVt = prethodnoVt;
     }
 
     public MestoMerenja getIdMm() {
@@ -162,7 +161,7 @@ public class Ocitavanje implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.Ocitavanje[ idOcitavanja=" + idOcitavanja + " ]";
+        return "com.example.demo.klase.Ocitavanje[ idOcitavanja=" + idOcitavanja + " ]";
     }
     
 }

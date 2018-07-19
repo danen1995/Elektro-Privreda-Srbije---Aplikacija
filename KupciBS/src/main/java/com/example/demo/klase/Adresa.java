@@ -59,6 +59,9 @@ public class Adresa implements Serializable {
     private Collection<Kupac> kupacCollection;
     @OneToMany(mappedBy = "idAdreseMm")
     @JsonBackReference
+    private Collection<MestoMerenja> mestoMerenjaCollection;
+    @OneToMany(mappedBy = "idAdreseMm")
+    @JsonBackReference
     private Collection<Potrosac> potrosacCollection;
 
     public Adresa() {
@@ -125,6 +128,15 @@ public class Adresa implements Serializable {
     }
 
     @XmlTransient
+    public Collection<MestoMerenja> getMestoMerenjaCollection() {
+        return mestoMerenjaCollection;
+    }
+
+    public void setMestoMerenjaCollection(Collection<MestoMerenja> mestoMerenjaCollection) {
+        this.mestoMerenjaCollection = mestoMerenjaCollection;
+    }
+
+    @XmlTransient
     public Collection<Potrosac> getPotrosacCollection() {
         return potrosacCollection;
     }
@@ -155,7 +167,7 @@ public class Adresa implements Serializable {
 
     @Override
     public String toString() {
-        return "klase.Adresa[ idAdrese=" + idAdrese + " ]";
+        return "com.example.demo.klase.Adresa[ idAdrese=" + idAdrese + " ]";
     }
     
 }

@@ -37,12 +37,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "RACUN")
 @XmlRootElement
 @NamedQueries({
+
     @NamedQuery(name = "Racun.findAll", query = "SELECT r FROM Racun r"),
-    @NamedQuery(name = "Racun.vratiRacuneZaPotrosaca", query = "SELECT r FROM Racun r WHERE r.idPotrosaca = ?1"),
+    @NamedQuery(name = "Racun.vratiRacuneZaPotrosaca", query = "SELECT r FROM Racun r INNER JOIN Potrosac p on r.idPotrosaca=p.idPotrosaca WHERE r.idPotrosaca = ?1"),
     @NamedQuery(name = "Racun.findByIdRacuna", query = "SELECT r FROM Racun r WHERE r.idRacuna = :idRacuna"),
     @NamedQuery(name = "Racun.findByDatumIzdavanja", query = "SELECT r FROM Racun r WHERE r.datumIzdavanja = :datumIzdavanja"),
-    @NamedQuery(name = "Racun.findByMestoIzdavanja", query = "SELECT r FROM Racun r WHERE r.mestoIzdavanja = :mestoIzdavanja"),
     @NamedQuery(name = "Racun.findByDatumPrometa", query = "SELECT r FROM Racun r WHERE r.datumPrometa = :datumPrometa"),
+    @NamedQuery(name = "Racun.findByMestoIzdavanja", query = "SELECT r FROM Racun r WHERE r.mestoIzdavanja = :mestoIzdavanja"),
     @NamedQuery(name = "Racun.findByPozivNaBroj", query = "SELECT r FROM Racun r WHERE r.pozivNaBroj = :pozivNaBroj"),
     @NamedQuery(name = "Racun.findByUkupanIznos", query = "SELECT r FROM Racun r WHERE r.ukupanIznos = :ukupanIznos")})
 public class Racun implements Serializable {
@@ -56,18 +57,18 @@ public class Racun implements Serializable {
     @Column(name = "DATUM_IZDAVANJA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datumIzdavanja;
-    @Column(name = "MESTO_IZDAVANJA")
-    private String mestoIzdavanja;
     @Column(name = "DATUM_PROMETA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datumPrometa;
+    @Column(name = "MESTO_IZDAVANJA")
+    private String mestoIzdavanja;
     @Column(name = "POZIV_NA_BROJ")
     private String pozivNaBroj;
+    @Lob
+    @Column(name = "RACUN_PDF")
+    private Serializable racunPdf;
     @Column(name = "UKUPAN_IZNOS")
     private BigDecimal ukupanIznos;
-    @Lob
-    @Column(name = "RACUN")
-    private Serializable racun;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "racun")
     @JsonBackReference
     private Collection<StavkaRacuna> stavkaRacunaCollection;
@@ -110,20 +111,20 @@ public class Racun implements Serializable {
         this.datumIzdavanja = datumIzdavanja;
     }
 
-    public String getMestoIzdavanja() {
-        return mestoIzdavanja;
-    }
-
-    public void setMestoIzdavanja(String mestoIzdavanja) {
-        this.mestoIzdavanja = mestoIzdavanja;
-    }
-
     public Date getDatumPrometa() {
         return datumPrometa;
     }
 
     public void setDatumPrometa(Date datumPrometa) {
         this.datumPrometa = datumPrometa;
+    }
+
+    public String getMestoIzdavanja() {
+        return mestoIzdavanja;
+    }
+
+    public void setMestoIzdavanja(String mestoIzdavanja) {
+        this.mestoIzdavanja = mestoIzdavanja;
     }
 
     public String getPozivNaBroj() {
@@ -134,20 +135,20 @@ public class Racun implements Serializable {
         this.pozivNaBroj = pozivNaBroj;
     }
 
+    public Serializable getRacunPdf() {
+        return racunPdf;
+    }
+
+    public void setRacunPdf(Serializable racunPdf) {
+        this.racunPdf = racunPdf;
+    }
+
     public BigDecimal getUkupanIznos() {
         return ukupanIznos;
     }
 
     public void setUkupanIznos(BigDecimal ukupanIznos) {
         this.ukupanIznos = ukupanIznos;
-    }
-
-    public Serializable getRacun() {
-        return racun;
-    }
-
-    public void setRacun(Serializable racun) {
-        this.racun = racun;
     }
 
     @XmlTransient
@@ -214,7 +215,7 @@ public class Racun implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.Racun[ idRacuna=" + idRacuna + " ]";
+        return "com.example.demo.klase.Racun[ idRacuna=" + idRacuna + " ]";
     }
     
 }

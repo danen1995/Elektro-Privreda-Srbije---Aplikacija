@@ -7,7 +7,6 @@ package com.example.demo.klase;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -29,8 +28,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StavkaRacuna.findAll", query = "SELECT s FROM StavkaRacuna s"),
-    @NamedQuery(name = "StavkaRacuna.findByIdStavkeRacuna", query = "SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idStavkeRacuna = :idStavkeRacuna"),
     @NamedQuery(name = "StavkaRacuna.findByIdRacuna", query = "SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idRacuna = :idRacuna"),
+    @NamedQuery(name = "StavkaRacuna.findByIdStavkeRacuna", query = "SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idStavkeRacuna = :idStavkeRacuna"),
     @NamedQuery(name = "StavkaRacuna.findByIznos", query = "SELECT s FROM StavkaRacuna s WHERE s.iznos = :iznos")})
 public class StavkaRacuna implements Serializable {
 
@@ -55,8 +54,8 @@ public class StavkaRacuna implements Serializable {
         this.stavkaRacunaPK = stavkaRacunaPK;
     }
 
-    public StavkaRacuna(BigInteger idStavkeRacuna, BigInteger idRacuna) {
-        this.stavkaRacunaPK = new StavkaRacunaPK(idStavkeRacuna, idRacuna);
+    public StavkaRacuna(BigDecimal idRacuna, BigDecimal idStavkeRacuna) {
+        this.stavkaRacunaPK = new StavkaRacunaPK(idRacuna, idStavkeRacuna);
     }
 
     public StavkaRacunaPK getStavkaRacunaPK() {
@@ -113,7 +112,7 @@ public class StavkaRacuna implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.StavkaRacuna[ stavkaRacunaPK=" + stavkaRacunaPK + " ]";
+        return "com.example.demo.klase.StavkaRacuna[ stavkaRacunaPK=" + stavkaRacunaPK + " ]";
     }
     
 }

@@ -114,7 +114,7 @@ public class Uplata implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.Uplata[ idUplate=" + idUplate + " ]";
+        return "com.example.demo.klase.Uplata[ idUplate=" + idUplate + " ]";
     }
     
 }

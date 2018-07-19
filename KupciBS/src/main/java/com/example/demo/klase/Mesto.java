@@ -81,7 +81,7 @@ public class Mesto implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.Mesto[ naziv=" + naziv + " ]";
+        return "com.example.demo.klase.Mesto[ naziv=" + naziv + " ]";
     }
     
 }

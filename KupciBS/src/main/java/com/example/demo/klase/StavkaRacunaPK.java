@@ -6,7 +6,7 @@
 package com.example.demo.klase;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -20,43 +20,45 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Embeddable
 public class StavkaRacunaPK implements Serializable {
 
-    @Basic(optional = false)
-    @Column(name = "ID_STAVKE_RACUNA")
-    private BigInteger idStavkeRacuna;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "ID_RACUNA")
     @JsonManagedReference
-    private BigInteger idRacuna;
+    private BigDecimal idRacuna;
+    @Basic(optional = false)
+    @Column(name = "ID_STAVKE_RACUNA")
+    @JsonManagedReference
+    private BigDecimal idStavkeRacuna;
 
     public StavkaRacunaPK() {
     }
 
-    public StavkaRacunaPK(BigInteger idStavkeRacuna, BigInteger idRacuna) {
-        this.idStavkeRacuna = idStavkeRacuna;
+    public StavkaRacunaPK(BigDecimal idRacuna, BigDecimal idStavkeRacuna) {
         this.idRacuna = idRacuna;
-    }
-
-    public BigInteger getIdStavkeRacuna() {
-        return idStavkeRacuna;
-    }
-
-    public void setIdStavkeRacuna(BigInteger idStavkeRacuna) {
         this.idStavkeRacuna = idStavkeRacuna;
     }
 
-    public BigInteger getIdRacuna() {
+    public BigDecimal getIdRacuna() {
         return idRacuna;
     }
 
-    public void setIdRacuna(BigInteger idRacuna) {
+    public void setIdRacuna(BigDecimal idRacuna) {
         this.idRacuna = idRacuna;
+    }
+
+    public BigDecimal getIdStavkeRacuna() {
+        return idStavkeRacuna;
+    }
+
+    public void setIdStavkeRacuna(BigDecimal idStavkeRacuna) {
+        this.idStavkeRacuna = idStavkeRacuna;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idStavkeRacuna != null ? idStavkeRacuna.hashCode() : 0);
         hash += (idRacuna != null ? idRacuna.hashCode() : 0);
+        hash += (idStavkeRacuna != null ? idStavkeRacuna.hashCode() : 0);
         return hash;
     }
 
@@ -67,10 +69,10 @@ public class StavkaRacunaPK implements Serializable {
             return false;
         }
         StavkaRacunaPK other = (StavkaRacunaPK) object;
-        if ((this.idStavkeRacuna == null && other.idStavkeRacuna != null) || (this.idStavkeRacuna != null && !this.idStavkeRacuna.equals(other.idStavkeRacuna))) {
+        if ((this.idRacuna == null && other.idRacuna != null) || (this.idRacuna != null && !this.idRacuna.equals(other.idRacuna))) {
             return false;
         }
-        if ((this.idRacuna == null && other.idRacuna != null) || (this.idRacuna != null && !this.idRacuna.equals(other.idRacuna))) {
+        if ((this.idStavkeRacuna == null && other.idStavkeRacuna != null) || (this.idStavkeRacuna != null && !this.idStavkeRacuna.equals(other.idStavkeRacuna))) {
             return false;
         }
         return true;
@@ -78,7 +80,7 @@ public class StavkaRacunaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.StavkaRacunaPK[ idStavkeRacuna=" + idStavkeRacuna + ", idRacuna=" + idRacuna + " ]";
+        return "com.example.demo.klase.StavkaRacunaPK[ idRacuna=" + idRacuna + ", idStavkeRacuna=" + idStavkeRacuna + " ]";
     }
     
 }

@@ -6,7 +6,7 @@
 package com.example.demo.klase;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -20,43 +20,45 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Embeddable
 public class StavkaOcitavanjaPK implements Serializable {
 
-    @Basic(optional = false)
-    @Column(name = "ID_STAVKE_OC")
-    private BigInteger idStavkeOc;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "ID_OCITAVANJA")
     @JsonManagedReference
-    private BigInteger idOcitavanja;
+    private BigDecimal idOcitavanja;
+    @Basic(optional = false)
+    @Column(name = "ID_STAVKE_OC")
+    @JsonManagedReference
+    private BigDecimal idStavkeOc;
 
     public StavkaOcitavanjaPK() {
     }
 
-    public StavkaOcitavanjaPK(BigInteger idStavkeOc, BigInteger idOcitavanja) {
-        this.idStavkeOc = idStavkeOc;
+    public StavkaOcitavanjaPK(BigDecimal idOcitavanja, BigDecimal idStavkeOc) {
         this.idOcitavanja = idOcitavanja;
-    }
-
-    public BigInteger getIdStavkeOc() {
-        return idStavkeOc;
-    }
-
-    public void setIdStavkeOc(BigInteger idStavkeOc) {
         this.idStavkeOc = idStavkeOc;
     }
 
-    public BigInteger getIdOcitavanja() {
+    public BigDecimal getIdOcitavanja() {
         return idOcitavanja;
     }
 
-    public void setIdOcitavanja(BigInteger idOcitavanja) {
+    public void setIdOcitavanja(BigDecimal idOcitavanja) {
         this.idOcitavanja = idOcitavanja;
+    }
+
+    public BigDecimal getIdStavkeOc() {
+        return idStavkeOc;
+    }
+
+    public void setIdStavkeOc(BigDecimal idStavkeOc) {
+        this.idStavkeOc = idStavkeOc;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idStavkeOc != null ? idStavkeOc.hashCode() : 0);
         hash += (idOcitavanja != null ? idOcitavanja.hashCode() : 0);
+        hash += (idStavkeOc != null ? idStavkeOc.hashCode() : 0);
         return hash;
     }
 
@@ -67,10 +69,10 @@ public class StavkaOcitavanjaPK implements Serializable {
             return false;
         }
         StavkaOcitavanjaPK other = (StavkaOcitavanjaPK) object;
-        if ((this.idStavkeOc == null && other.idStavkeOc != null) || (this.idStavkeOc != null && !this.idStavkeOc.equals(other.idStavkeOc))) {
+        if ((this.idOcitavanja == null && other.idOcitavanja != null) || (this.idOcitavanja != null && !this.idOcitavanja.equals(other.idOcitavanja))) {
             return false;
         }
-        if ((this.idOcitavanja == null && other.idOcitavanja != null) || (this.idOcitavanja != null && !this.idOcitavanja.equals(other.idOcitavanja))) {
+        if ((this.idStavkeOc == null && other.idStavkeOc != null) || (this.idStavkeOc != null && !this.idStavkeOc.equals(other.idStavkeOc))) {
             return false;
         }
         return true;
@@ -78,7 +80,7 @@ public class StavkaOcitavanjaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.StavkaOcitavanjaPK[ idStavkeOc=" + idStavkeOc + ", idOcitavanja=" + idOcitavanja + " ]";
+        return "com.example.demo.klase.StavkaOcitavanjaPK[ idOcitavanja=" + idOcitavanja + ", idStavkeOc=" + idStavkeOc + " ]";
     }
     
 }

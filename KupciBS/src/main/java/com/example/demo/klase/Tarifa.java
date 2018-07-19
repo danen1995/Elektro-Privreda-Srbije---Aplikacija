@@ -1,5 +1,4 @@
 /*
-
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -32,9 +31,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @NamedQueries({
     @NamedQuery(name = "Tarifa.findAll", query = "SELECT t FROM Tarifa t"),
     @NamedQuery(name = "Tarifa.findByIdTarife", query = "SELECT t FROM Tarifa t WHERE t.idTarife = :idTarife"),
-    @NamedQuery(name = "Tarifa.findByZona", query = "SELECT t FROM Tarifa t WHERE t.zona = :zona"),
+    @NamedQuery(name = "Tarifa.findByCena", query = "SELECT t FROM Tarifa t WHERE t.cena = :cena"),
     @NamedQuery(name = "Tarifa.findByTip", query = "SELECT t FROM Tarifa t WHERE t.tip = :tip"),
-    @NamedQuery(name = "Tarifa.findByCena", query = "SELECT t FROM Tarifa t WHERE t.cena = :cena")})
+    @NamedQuery(name = "Tarifa.findByZona", query = "SELECT t FROM Tarifa t WHERE t.zona = :zona")})
 public class Tarifa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,12 +42,12 @@ public class Tarifa implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_TARIFE")
     private BigDecimal idTarife;
-    @Column(name = "ZONA")
-    private String zona;
-    @Column(name = "TIP")
-    private String tip;
     @Column(name = "CENA")
     private BigDecimal cena;
+    @Column(name = "TIP")
+    private String tip;
+    @Column(name = "ZONA")
+    private String zona;
     @OneToMany(mappedBy = "idTarife")
     @JsonBackReference
     private Collection<StavkaOcitavanja> stavkaOcitavanjaCollection;
@@ -68,12 +67,12 @@ public class Tarifa implements Serializable {
         this.idTarife = idTarife;
     }
 
-    public String getZona() {
-        return zona;
+    public BigDecimal getCena() {
+        return cena;
     }
 
-    public void setZona(String zona) {
-        this.zona = zona;
+    public void setCena(BigDecimal cena) {
+        this.cena = cena;
     }
 
     public String getTip() {
@@ -84,12 +83,12 @@ public class Tarifa implements Serializable {
         this.tip = tip;
     }
 
-    public BigDecimal getCena() {
-        return cena;
+    public String getZona() {
+        return zona;
     }
 
-    public void setCena(BigDecimal cena) {
-        this.cena = cena;
+    public void setZona(String zona) {
+        this.zona = zona;
     }
 
     @XmlTransient
@@ -123,7 +122,7 @@ public class Tarifa implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.Tarifa[ idTarife=" + idTarife + " ]";
+        return "com.example.demo.klase.Tarifa[ idTarife=" + idTarife + " ]";
     }
     
 }

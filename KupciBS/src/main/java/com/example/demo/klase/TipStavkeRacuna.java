@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  *
@@ -39,6 +40,7 @@ public class TipStavkeRacuna implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_TIPA_STAVKE_RACUNA")
+    @JsonManagedReference
     private BigDecimal idTipaStavkeRacuna;
     @Column(name = "NAZIV")
     private String naziv;
@@ -100,7 +102,7 @@ public class TipStavkeRacuna implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.TipStavkeRacuna[ idTipaStavkeRacuna=" + idTipaStavkeRacuna + " ]";
+        return "com.example.demo.klase.TipStavkeRacuna[ idTipaStavkeRacuna=" + idTipaStavkeRacuna + " ]";
     }
     
 }

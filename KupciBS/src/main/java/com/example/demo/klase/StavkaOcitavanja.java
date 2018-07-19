@@ -6,7 +6,7 @@
 package com.example.demo.klase;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -28,16 +28,17 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StavkaOcitavanja.findAll", query = "SELECT s FROM StavkaOcitavanja s"),
-    @NamedQuery(name = "StavkaOcitavanja.findByUtroseno", query = "SELECT s FROM StavkaOcitavanja s WHERE s.utroseno = :utroseno"),
+    @NamedQuery(name = "StavkaOcitavanja.findByIdOcitavanja", query = "SELECT s FROM StavkaOcitavanja s WHERE s.stavkaOcitavanjaPK.idOcitavanja = :idOcitavanja"),
     @NamedQuery(name = "StavkaOcitavanja.findByIdStavkeOc", query = "SELECT s FROM StavkaOcitavanja s WHERE s.stavkaOcitavanjaPK.idStavkeOc = :idStavkeOc"),
-    @NamedQuery(name = "StavkaOcitavanja.findByIdOcitavanja", query = "SELECT s FROM StavkaOcitavanja s WHERE s.stavkaOcitavanjaPK.idOcitavanja = :idOcitavanja")})
+    @NamedQuery(name = "StavkaOcitavanja.findByUtroseno", query = "SELECT s FROM StavkaOcitavanja s WHERE s.utroseno = :utroseno")})
 public class StavkaOcitavanja implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected StavkaOcitavanjaPK stavkaOcitavanjaPK;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "UTROSENO")
-    private BigInteger utroseno;
+    private BigDecimal utroseno;
     @JoinColumn(name = "ID_OCITAVANJA", referencedColumnName = "ID_OCITAVANJA", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Ocitavanje ocitavanje;
@@ -53,8 +54,8 @@ public class StavkaOcitavanja implements Serializable {
         this.stavkaOcitavanjaPK = stavkaOcitavanjaPK;
     }
 
-    public StavkaOcitavanja(BigInteger idStavkeOc, BigInteger idOcitavanja) {
-        this.stavkaOcitavanjaPK = new StavkaOcitavanjaPK(idStavkeOc, idOcitavanja);
+    public StavkaOcitavanja(BigDecimal idOcitavanja, BigDecimal idStavkeOc) {
+        this.stavkaOcitavanjaPK = new StavkaOcitavanjaPK(idOcitavanja, idStavkeOc);
     }
 
     public StavkaOcitavanjaPK getStavkaOcitavanjaPK() {
@@ -65,11 +66,11 @@ public class StavkaOcitavanja implements Serializable {
         this.stavkaOcitavanjaPK = stavkaOcitavanjaPK;
     }
 
-    public BigInteger getUtroseno() {
+    public BigDecimal getUtroseno() {
         return utroseno;
     }
 
-    public void setUtroseno(BigInteger utroseno) {
+    public void setUtroseno(BigDecimal utroseno) {
         this.utroseno = utroseno;
     }
 
@@ -111,7 +112,7 @@ public class StavkaOcitavanja implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication15.StavkaOcitavanja[ stavkaOcitavanjaPK=" + stavkaOcitavanjaPK + " ]";
+        return "com.example.demo.klase.StavkaOcitavanja[ stavkaOcitavanjaPK=" + stavkaOcitavanjaPK + " ]";
     }
     
 }
