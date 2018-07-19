@@ -15,6 +15,7 @@ import com.example.demo.repository.KorisnikRepository;
 import com.example.demo.repository.KupacRepository;
 import com.example.demo.repository.PotrosacRepository;
 import com.example.demo.repository.RacunRepository;
+import com.example.demo.repository.StavkaRacunaRepository;
 
 
 
@@ -29,6 +30,8 @@ public class Controller {
 	  KupacRepository kupacRepository;
 	  @Autowired
 	  RacunRepository racunRepository;
+	  @Autowired
+	  StavkaRacunaRepository stavkaRacunaRepository;
 	  
 
 	  @GetMapping("/logovanje")
@@ -60,6 +63,11 @@ public class Controller {
 	  @GetMapping("/vratiSveRacune")
 	  public @ResponseBody List<Racun> vratiSveRacune() {
 		  return racunRepository.findAll();
+	  }
+	  
+	  @GetMapping("/vratiSveStavkeRacuna")
+	  public @ResponseBody List<StavkaRacuna> vratiSveStavkeRacuna(@RequestParam(value="idRacuna") BigDecimal idRacuna) {
+		  return stavkaRacunaRepository.vratiStavkeRacuna(idRacuna);
 	  }
 	  
 }

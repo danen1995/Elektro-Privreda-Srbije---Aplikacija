@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StavkaRacuna.findAll", query = "SELECT s FROM StavkaRacuna s"),
-    @NamedQuery(name = "StavkaRacuna.findByIdRacuna", query = "SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idRacuna = :idRacuna"),
+    @NamedQuery(name = "StavkaRacuna.vratiStavkeRacuna", query = "SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idRacuna = ?1"),
     @NamedQuery(name = "StavkaRacuna.findByIdStavkeRacuna", query = "SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idStavkeRacuna = :idStavkeRacuna"),
     @NamedQuery(name = "StavkaRacuna.findByIznos", query = "SELECT s FROM StavkaRacuna s WHERE s.iznos = :iznos")})
 public class StavkaRacuna implements Serializable {
