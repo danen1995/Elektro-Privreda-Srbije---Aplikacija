@@ -14,6 +14,7 @@ import com.example.demo.klase.*;
 import com.example.demo.repository.KorisnikRepository;
 import com.example.demo.repository.KupacRepository;
 import com.example.demo.repository.PotrosacRepository;
+import com.example.demo.repository.RacunRepository;
 
 
 
@@ -26,6 +27,8 @@ public class Controller {
 	  PotrosacRepository potrosacRepository;
 	  @Autowired
 	  KupacRepository kupacRepository;
+	  @Autowired
+	  RacunRepository racunRepository;
 	  
 
 	  @GetMapping("/logovanje")
@@ -39,13 +42,19 @@ public class Controller {
 	  }
 	  
 		
-	@GetMapping("/osnovniPodaci")
-		  public @ResponseBody Kupac vratiOsnovnePodatkeKorisnika(@RequestParam(value="korID") BigDecimal korID) {
-			  return kupacRepository.vratiOsnovnePodatke(korID);
-		  }
+	  @GetMapping("/osnovniPodaci")
+	  public @ResponseBody Kupac vratiOsnovnePodatkeKorisnika(@RequestParam(value="korID") BigDecimal korID) {
+		  return kupacRepository.vratiOsnovnePodatke(korID);
+	  }
 	
-		@GetMapping("/vratiPotrosaceZaKupca")
-		  public @ResponseBody List<Potrosac> vratiPotrosaceZaKupca(@RequestParam(value="idKupca") BigDecimal idKupca) {
-			  return potrosacRepository.vratiPotrosaceZaKupca(idKupca);
-		  }
+	  @GetMapping("/vratiPotrosaceZaKupca")
+	  public @ResponseBody List<Potrosac> vratiPotrosaceZaKupca(@RequestParam(value="idKupca") BigDecimal idKupca) {
+		  return potrosacRepository.vratiPotrosaceZaKupca(idKupca);
+	  }
+	  
+	  @GetMapping("/vratiRacuneZaPotrosaca")
+	  public @ResponseBody List<Racun> vratiRacuneZaPotrosaca(@RequestParam(value="idPotrosaca") BigDecimal idPotrosaca) {
+		  return racunRepository.vratiRacuneZaPotrosaca(idPotrosaca);
+	  }
+	  
 }
