@@ -32,7 +32,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "Korisnik.findAll", query = "SELECT k FROM Korisnik k"),
     @NamedQuery(name = "Korisnik.findByIdKorisnika", query = "SELECT k FROM Korisnik k WHERE k.idKorisnika = :idKorisnika"),
     @NamedQuery(name = "Korisnik.logovanje", query = "SELECT k FROM Korisnik k WHERE k.korisnickoIme = ?1 AND k.lozinka = ?2"),
+    @NamedQuery(name = "Korisnik.registracijaBrojila", query = "SELECT k FROM Korisnik k  INNER JOIN Kupac ku on k.idKupca = ku.idKupca INNER JOIN Potrosac p on p.idKupca = ku.idKupca INNER JOIN MestoMerenja m on m.idPotrosaca = p.idPotrosaca WHERE m.brBrojila = ?1 AND p.edBroj = ?2"),
     @NamedQuery(name = "Korisnik.findByLozinka", query = "SELECT k FROM Korisnik k WHERE k.lozinka = :lozinka")})
+
 public class Korisnik implements Serializable {
 
     private static final long serialVersionUID = 1L;

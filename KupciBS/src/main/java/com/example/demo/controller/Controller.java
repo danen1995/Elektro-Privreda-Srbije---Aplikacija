@@ -80,4 +80,9 @@ public class Controller {
 		  return korisnikRepository.save(korisnik);
 	  }
 	  
+	  @GetMapping("/registracijaBrojila")
+	  public @ResponseBody Korisnik registracijaBrojila(@RequestParam(value="brojBrojila") BigDecimal brojBrojila, @RequestParam(value = "edBroj") String edBroj) {
+		  return korisnikRepository.registracijaBrojila(brojBrojila, edBroj);
+	  }
+	  
 }
