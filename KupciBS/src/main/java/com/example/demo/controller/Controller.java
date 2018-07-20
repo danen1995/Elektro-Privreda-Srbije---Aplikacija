@@ -17,6 +17,8 @@ import com.example.demo.repository.KupacRepository;
 import com.example.demo.repository.PotrosacRepository;
 import com.example.demo.repository.RacunRepository;
 import com.example.demo.repository.StavkaRacunaRepository;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 
@@ -72,8 +74,10 @@ public class Controller {
 	  }
 	  
 	  @PostMapping("/registracija")
-	  public @ResponseBody Korisnik registrujKorisnika(@RequestBody Korisnik k) {
-		  return korisnikRepository.save(k);
+	  public @ResponseBody Korisnik registrujKorisnika(@RequestBody String str) {
+		  Gson gson = new GsonBuilder().create();
+	      Korisnik korisnik = gson.fromJson(str, Korisnik.class);
+		  return korisnikRepository.save(korisnik);
 	  }
 	  
 }
