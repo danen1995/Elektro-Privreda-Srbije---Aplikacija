@@ -7,6 +7,7 @@ package com.example.demo.klase;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -40,6 +41,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
     @NamedQuery(name = "Racun.findAll", query = "SELECT r FROM Racun r"),
     @NamedQuery(name = "Racun.vratiRacuneZaPotrosaca", query = "SELECT r FROM Racun r WHERE r.idPotrosaca.idPotrosaca = ?1"),
+    @NamedQuery(name = "Racun.vratiPdf", query = "SELECT r.racunPdf FROM Racun r"),
     @NamedQuery(name = "Racun.findByIdRacuna", query = "SELECT r FROM Racun r WHERE r.idRacuna = :idRacuna"),
     @NamedQuery(name = "Racun.findByDatumIzdavanja", query = "SELECT r FROM Racun r WHERE r.datumIzdavanja = :datumIzdavanja"),
     @NamedQuery(name = "Racun.findByDatumPrometa", query = "SELECT r FROM Racun r WHERE r.datumPrometa = :datumPrometa"),
@@ -66,7 +68,7 @@ public class Racun implements Serializable {
     private String pozivNaBroj;
     @Lob
     @Column(name = "RACUN_PDF")
-    private Serializable racunPdf;
+    private Blob racunPdf;
     @Column(name = "UKUPAN_IZNOS")
     private BigDecimal ukupanIznos;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "racun")
@@ -135,11 +137,11 @@ public class Racun implements Serializable {
         this.pozivNaBroj = pozivNaBroj;
     }
 
-    public Serializable getRacunPdf() {
+    public Blob getRacunPdf() {
         return racunPdf;
     }
 
-    public void setRacunPdf(Serializable racunPdf) {
+    public void setRacunPdf(Blob racunPdf) {
         this.racunPdf = racunPdf;
     }
 

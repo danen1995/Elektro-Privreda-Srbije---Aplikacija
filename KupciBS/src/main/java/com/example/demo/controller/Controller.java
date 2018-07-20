@@ -1,5 +1,10 @@
 package com.example.demo.controller;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,4 +90,23 @@ public class Controller {
 		  return korisnikRepository.registracijaBrojila(brojBrojila, edBroj);
 	  }
 	  
+		@GetMapping("/vratiPdf")
+		public @ResponseBody String vratiPdf(@RequestParam(value = "idRacuna") BigDecimal idRacuna) throws SQLException, IOException {
+			
+			Blob racun = racunRepository.vratiPdf(idRacuna);
+			//InputStream in = racun.getBinaryStream();
+			int len = (int) racun.length();
+			byte[] bytes = racun.getBytes(1l, len);
+			File fajl = new File("racun.pdf");
+			fajl.createNewFile();
+			FileOutputStream fos = new FileOutputStream("racun.pdf", false);
+			fos.write(bytes);
+			//uspesno napuni fajl
+			//ne znam kako da ga konvertujemo u json
+			Gson gson = new GsonBuilder().create();
+			String jsonInString = gson.toJson(bytes);
+			System.out.println(jsonInString);
+			return jsonInString;
+
+		}
 }
