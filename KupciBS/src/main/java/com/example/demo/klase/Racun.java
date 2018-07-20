@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -136,7 +137,7 @@ public class Racun implements Serializable {
     public void setPozivNaBroj(String pozivNaBroj) {
         this.pozivNaBroj = pozivNaBroj;
     }
-
+    @JsonIgnore
     public Blob getRacunPdf() {
         return racunPdf;
     }
