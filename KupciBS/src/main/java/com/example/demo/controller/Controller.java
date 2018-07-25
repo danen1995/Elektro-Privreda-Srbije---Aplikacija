@@ -109,4 +109,9 @@ public class Controller {
 			return jsonInString;
 
 		}
+		
+		@GetMapping("/vratiKupcaZaEdBb")
+		  public @ResponseBody Kupac vratiKupcaZaEdBrojiBrojBrojila(@RequestParam(value = "edBroj") String edBroj,@RequestParam(value="brojBrojila") BigDecimal brojBrojila) {
+			  return kupacRepository.vratiKupcaZaEdBrojiBrojBrojila(edBroj,brojBrojila);
+		  }
 }

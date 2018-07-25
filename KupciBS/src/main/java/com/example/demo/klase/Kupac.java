@@ -21,6 +21,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.springframework.data.jpa.repository.Query;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -32,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "KUPAC")
 @XmlRootElement
 @NamedQueries({
+	@NamedQuery(name = "Kupac.vratiKupcaZaEdBrojiBrojBrojila", query = "SELECT k from Kupac k INNER JOIN Potrosac p on p.idKupca = k.idKupca INNER JOIN MestoMerenja m on m.idPotrosaca = p.idPotrosaca WHERE p.edBroj =?1 AND m.brBrojila = ?2"),
     @NamedQuery(name = "Kupac.findAll", query = "SELECT k FROM Kupac k"),
     @NamedQuery(name = "Kupac.findByIdKupca", query = "SELECT k FROM Kupac k WHERE k.idKupca = :idKupca"),
     @NamedQuery(name = "Kupac.findByJmbg", query = "SELECT k FROM Kupac k WHERE k.jmbg = :jmbg"),
