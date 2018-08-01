@@ -85,8 +85,10 @@ public class Controller {
 		  return korisnikRepository.findAll();
 	  }
 	  
-	  @PostMapping("/korisnici")
-	  public @ResponseBody Korisnik registrujKorisnika(@Valid @RequestBody Korisnik korisnik) {
+	  @PostMapping("/registracija")
+	  public @ResponseBody Korisnik registrujKorisnika(@RequestBody String str) {
+		  Gson gson = new GsonBuilder().create();
+	      Korisnik korisnik = gson.fromJson(str, Korisnik.class);
 		  return korisnikRepository.save(korisnik);
 	  }
 	  
