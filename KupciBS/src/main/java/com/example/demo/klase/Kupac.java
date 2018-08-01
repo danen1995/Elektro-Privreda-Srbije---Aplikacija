@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.data.jpa.repository.Query;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -44,6 +45,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "Kupac.findByPib", query = "SELECT k FROM Kupac k WHERE k.pib = :pib"),
     @NamedQuery(name = "Kupac.findByProsireniNaziv", query = "SELECT k FROM Kupac k WHERE k.prosireniNaziv = :prosireniNaziv"),
     @NamedQuery(name = "Kupac.findByTip", query = "SELECT k FROM Kupac k WHERE k.tip = :tip")})
+@JsonIgnoreProperties("ADRESA")
 public class Kupac implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,9 +73,10 @@ public class Kupac implements Serializable {
     private String tip;
     @JoinColumn(name = "ID_ADRESE_SR", referencedColumnName = "ID_ADRESE")
     @ManyToOne
+    @JsonManagedReference(value="adresa")
     private Adresa idAdreseSr;
     @OneToMany(mappedBy = "idKupca")
-    @JsonBackReference
+    @JsonBackReference(value="nesto")
     private Collection<Korisnik> korisnikCollection;
     @OneToMany(mappedBy = "idKupca")
     @JsonBackReference

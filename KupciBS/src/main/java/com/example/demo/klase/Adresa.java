@@ -55,7 +55,7 @@ public class Adresa implements Serializable {
     @Column(name = "ULICA")
     private String ulica;
     @OneToMany(mappedBy = "idAdreseSr")
-    @JsonBackReference
+    @JsonBackReference(value="adresa")
     private Collection<Kupac> kupacCollection;
     @OneToMany(mappedBy = "idAdreseMm")
     @JsonBackReference

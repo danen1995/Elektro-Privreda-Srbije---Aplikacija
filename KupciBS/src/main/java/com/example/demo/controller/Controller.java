@@ -7,6 +7,8 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,14 +80,17 @@ public class Controller {
 		  return stavkaRacunaRepository.vratiStavkeRacuna(idRacuna);
 	  }
 	  
-	  @PostMapping("/registracija")
-	  public @ResponseBody Korisnik registrujKorisnika(@RequestBody String str) {
-		  Gson gson = new GsonBuilder().create();
-	      Korisnik korisnik = gson.fromJson(str, Korisnik.class);
+	  @GetMapping("/korisnici")
+	  public @ResponseBody List<Korisnik> korisnici() {
+		  return korisnikRepository.findAll();
+	  }
+	  
+	  @PostMapping("/korisnici")
+	  public @ResponseBody Korisnik registrujKorisnika(@Valid @RequestBody Korisnik korisnik) {
 		  return korisnikRepository.save(korisnik);
 	  }
 	  
-	  @GetMapping("/registracijaBrojila")
+	  @GetMapping("/daLiVecPostojiKorisnikZaEdBb")
 	  public @ResponseBody Korisnik registracijaBrojila(@RequestParam(value="brojBrojila") BigDecimal brojBrojila, @RequestParam(value = "edBroj") String edBroj) {
 		  return korisnikRepository.registracijaBrojila(brojBrojila, edBroj);
 	  }
@@ -113,5 +118,10 @@ public class Controller {
 		@GetMapping("/vratiKupcaZaEdBb")
 		  public @ResponseBody Kupac vratiKupcaZaEdBrojiBrojBrojila(@RequestParam(value = "edBroj") String edBroj,@RequestParam(value="brojBrojila") BigDecimal brojBrojila) {
 			  return kupacRepository.vratiKupcaZaEdBrojiBrojBrojila(edBroj,brojBrojila);
+		  }
+		
+		@GetMapping("/potrosacEdBr")
+		  public @ResponseBody Potrosac vratiPotrosacaZaEdBrojIBrojBrojila(@RequestParam(value="brojBrojila") BigDecimal brojBrojila, @RequestParam(value = "edBroj") String edBroj) {
+			  return potrosacRepository.vratiPotrosacaZaEdIBr(brojBrojila, edBroj);
 		  }
 }

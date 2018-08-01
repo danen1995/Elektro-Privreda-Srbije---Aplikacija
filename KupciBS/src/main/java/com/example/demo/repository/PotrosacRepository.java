@@ -18,4 +18,7 @@ public interface PotrosacRepository extends JpaRepository<Potrosac, Integer> {
 	
 	@Query("SELECT p from Potrosac p INNER JOIN Kupac k ON p.idKupca = k.idKupca WHERE k.idKupca =?1")
 	public List<Potrosac> vratiPotrosaceZaKupca(BigDecimal idKupca);
+	
+	@Query("SELECT p FROM Potrosac p  INNER JOIN MestoMerenja m on m.idPotrosaca = p.idPotrosaca WHERE m.brBrojila = ?1 AND p.edBroj = ?2") 
+	public Potrosac vratiPotrosacaZaEdIBr(BigDecimal brojBrojila, String edBroj);
 }
