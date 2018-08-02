@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -33,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
     @NamedQuery(name = "ObracunskaSnaga.findByIdObracunskeSnage", query = "SELECT o FROM ObracunskaSnaga o WHERE o.idObracunskeSnage = :idObracunskeSnage"),
     @NamedQuery(name = "ObracunskaSnaga.findByUtroseno", query = "SELECT o FROM ObracunskaSnaga o WHERE o.utroseno = :utroseno"),
     @NamedQuery(name = "ObracunskaSnaga.findByCenaPoJedinici", query = "SELECT o FROM ObracunskaSnaga o WHERE o.cenaPoJedinici = :cenaPoJedinici")})
+@JsonIdentityInfo(scope = ObracunskaSnaga.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idObracunskeSnage")
 public class ObracunskaSnaga implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,7 +49,7 @@ public class ObracunskaSnaga implements Serializable {
     @Column(name = "CENA_PO_JEDINICI")
     private BigDecimal cenaPoJedinici;
     @OneToMany(mappedBy = "idObracunskeSnage")
-    @JsonBackReference
+    @JsonBackReference(value="obracunskaSnaga-mestaMerenja")
     private Collection<MestoMerenja> mestoMerenjaCollection;
 
     public ObracunskaSnaga() {

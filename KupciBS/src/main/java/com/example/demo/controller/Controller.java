@@ -42,9 +42,22 @@ public class Controller {
 	  StavkaRacunaRepository stavkaRacunaRepository;
 	  
 
-	  @GetMapping("/logovanje")
-	  public @ResponseBody Korisnik logovanje(@RequestParam(value="user") String user, @RequestParam(value = "pass") String pass) {
-		  return korisnikRepository.logovanje(user, pass);
+	  @PostMapping("/logovanje")
+	  public @ResponseBody Wrapper<Korisnik> logovanje(@RequestParam(value="user") String user, @RequestParam(value = "pass") String pass) {
+		  Wrapper<Korisnik> wrapper;
+		  Korisnik korisnik = korisnikRepository.logovanje(user, pass);		  
+		  if (korisnik == null) {
+			  korisnik = korisnikRepository.postoji(user);
+			  if (korisnik == null) {
+				  wrapper = new Wrapper<Korisnik>(Wrapper.USER_NOT_FOUND, 
+						  "Korisnik sa nalogom " + user + " ne postoji.", null);
+			  }else
+				  wrapper = new Wrapper<Korisnik>(Wrapper.USER_PASSWORD_DOES_NOT_MATCH,
+						  "Pogresna lozinka.", korisnik);
+		  }else
+			  wrapper = new Wrapper<Korisnik>(Wrapper.USER_AUTHENTICATED, "", korisnik);
+		
+		  return wrapper;
 	  }
 	  
 	  @GetMapping("/vratiSvePotrosace")
@@ -78,11 +91,18 @@ public class Controller {
 		  return stavkaRacunaRepository.vratiStavkeRacuna(idRacuna);
 	  }
 	  
+//	  @PostMapping("/registracija")
+//	  public @ResponseBody Korisnik registrujKorisnika(@RequestBody String str) {
+//		  Gson gson = new GsonBuilder().create();
+//	      Korisnik korisnik = gson.fromJson(str, Korisnik.class);
+//		  return korisnikRepository.save(korisnik);
+//	  }
+	  
 	  @PostMapping("/registracija")
-	  public @ResponseBody Korisnik registrujKorisnika(@RequestBody String str) {
-		  Gson gson = new GsonBuilder().create();
-	      Korisnik korisnik = gson.fromJson(str, Korisnik.class);
+	  public @ResponseBody Korisnik registrujKorisnika(@RequestBody Korisnik korisnik) {		  
+		  korisnik.setIdKorisnika(BigDecimal.ZERO);
 		  return korisnikRepository.save(korisnik);
+		  
 	  }
 	  
 	  @GetMapping("/registracijaBrojila")
@@ -111,7 +131,15 @@ public class Controller {
 		}
 		
 		@GetMapping("/vratiKupcaZaEdBb")
-		  public @ResponseBody Kupac vratiKupcaZaEdBrojiBrojBrojila(@RequestParam(value = "edBroj") String edBroj,@RequestParam(value="brojBrojila") BigDecimal brojBrojila) {
-			  return kupacRepository.vratiKupcaZaEdBrojiBrojBrojila(edBroj,brojBrojila);
+		public @ResponseBody Wrapper<Kupac> vratiKupcaZaEdBrojiBrojBrojila(
+				@RequestParam(value="edBroj") String edBroj,@RequestParam(value="brojBrojila") BigDecimal brojBrojila) {
+			Wrapper<Kupac> wrapper;
+			Kupac kupac = kupacRepository.vratiKupcaZaEdBrojiBrojBrojila(edBroj,brojBrojila);
+			if (kupac == null) {				
+				wrapper = new Wrapper<Kupac>(Wrapper.BUYER_DOES_NOT_EXIST, "Ne postoji kupac sa unetom kombinacijom ED broja i broja brojila.", null);
+			}else {
+				wrapper = new Wrapper<Kupac>(Wrapper.BUYER_AUTHENTICATED, "", kupac);
+			}
+			return wrapper;
 		  }
 }

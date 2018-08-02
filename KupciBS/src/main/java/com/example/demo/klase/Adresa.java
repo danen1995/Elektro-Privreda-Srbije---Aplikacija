@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -35,6 +37,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
     @NamedQuery(name = "Adresa.findByGrad", query = "SELECT a FROM Adresa a WHERE a.grad = :grad"),
     @NamedQuery(name = "Adresa.findByOpstina", query = "SELECT a FROM Adresa a WHERE a.opstina = :opstina"),
     @NamedQuery(name = "Adresa.findByUlica", query = "SELECT a FROM Adresa a WHERE a.ulica = :ulica")})
+@JsonIdentityInfo(scope = Adresa.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idAdrese")
 public class Adresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,13 +58,13 @@ public class Adresa implements Serializable {
     @Column(name = "ULICA")
     private String ulica;
     @OneToMany(mappedBy = "idAdreseSr")
-    @JsonBackReference
+    @JsonBackReference(value="adresa-kupci")
     private Collection<Kupac> kupacCollection;
     @OneToMany(mappedBy = "idAdreseMm")
-    @JsonBackReference
+    @JsonBackReference(value="adresa-mestaMerenja")
     private Collection<MestoMerenja> mestoMerenjaCollection;
     @OneToMany(mappedBy = "idAdreseMm")
-    @JsonBackReference
+    @JsonBackReference(value="adresa-potrosaci")
     private Collection<Potrosac> potrosacCollection;
 
     public Adresa() {

@@ -28,8 +28,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -49,6 +51,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "Racun.findByMestoIzdavanja", query = "SELECT r FROM Racun r WHERE r.mestoIzdavanja = :mestoIzdavanja"),
     @NamedQuery(name = "Racun.findByPozivNaBroj", query = "SELECT r FROM Racun r WHERE r.pozivNaBroj = :pozivNaBroj"),
     @NamedQuery(name = "Racun.findByUkupanIznos", query = "SELECT r FROM Racun r WHERE r.ukupanIznos = :ukupanIznos")})
+@JsonIdentityInfo(scope = Racun.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idRacuna")
 public class Racun implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -73,22 +76,22 @@ public class Racun implements Serializable {
     @Column(name = "UKUPAN_IZNOS")
     private BigDecimal ukupanIznos;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "racun")
-    @JsonBackReference
+    @JsonBackReference(value="racun-stavkeRacuna")
     private Collection<StavkaRacuna> stavkaRacunaCollection;
     @OneToMany(mappedBy = "idRacuna")
-    @JsonBackReference
+    @JsonBackReference(value="racun-uplate")
     private Collection<Uplata> uplataCollection;
     @JoinColumn(name = "ID_OP", referencedColumnName = "ID_OP")
     @ManyToOne
-    @JsonManagedReference
+    //@JsonManagedReference(value="racun-obracunskiPeriod")
     private ObracunskiPeriod idOp;
     @JoinColumn(name = "ID_OCITAVANJA", referencedColumnName = "ID_OCITAVANJA")
     @ManyToOne
-    @JsonManagedReference
+    //@JsonManagedReference(value="racun-ocitavanje")
     private Ocitavanje idOcitavanja;
     @JoinColumn(name = "ID_POTROSACA", referencedColumnName = "ID_POTROSACA")
     @ManyToOne
-    @JsonManagedReference
+    //@JsonManagedReference(value="racun-potrosac")
     private Potrosac idPotrosaca;
 
     public Racun() {

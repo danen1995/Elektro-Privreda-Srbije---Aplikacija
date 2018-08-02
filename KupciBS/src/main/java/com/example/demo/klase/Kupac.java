@@ -11,6 +11,7 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,7 +25,9 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.data.jpa.repository.Query;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -44,6 +47,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "Kupac.findByPib", query = "SELECT k FROM Kupac k WHERE k.pib = :pib"),
     @NamedQuery(name = "Kupac.findByProsireniNaziv", query = "SELECT k FROM Kupac k WHERE k.prosireniNaziv = :prosireniNaziv"),
     @NamedQuery(name = "Kupac.findByTip", query = "SELECT k FROM Kupac k WHERE k.tip = :tip")})
+@JsonIdentityInfo(scope = Kupac.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idKupca")
 public class Kupac implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,12 +75,13 @@ public class Kupac implements Serializable {
     private String tip;
     @JoinColumn(name = "ID_ADRESE_SR", referencedColumnName = "ID_ADRESE")
     @ManyToOne
+    //@JsonManagedReference(value="kupac-adresa")
     private Adresa idAdreseSr;
     @OneToMany(mappedBy = "idKupca")
-    @JsonBackReference
+    @JsonBackReference(value="kupac-korisnici")
     private Collection<Korisnik> korisnikCollection;
     @OneToMany(mappedBy = "idKupca")
-    @JsonBackReference
+    @JsonBackReference(value="kupac-potrosaci")
     private Collection<Potrosac> potrosacCollection;
 
     public Kupac() {

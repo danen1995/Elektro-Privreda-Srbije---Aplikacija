@@ -20,7 +20,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -33,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "TipStavkeRacuna.findAll", query = "SELECT t FROM TipStavkeRacuna t"),
     @NamedQuery(name = "TipStavkeRacuna.findByIdTipaStavkeRacuna", query = "SELECT t FROM TipStavkeRacuna t WHERE t.idTipaStavkeRacuna = :idTipaStavkeRacuna"),
     @NamedQuery(name = "TipStavkeRacuna.findByNaziv", query = "SELECT t FROM TipStavkeRacuna t WHERE t.naziv = :naziv")})
+@JsonIdentityInfo(scope = TipStavkeRacuna.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idTipaStavkeRacuna")
 public class TipStavkeRacuna implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,12 +43,11 @@ public class TipStavkeRacuna implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_TIPA_STAVKE_RACUNA")
-    @JsonManagedReference
     private BigDecimal idTipaStavkeRacuna;
     @Column(name = "NAZIV")
     private String naziv;
     @OneToMany(mappedBy = "idTipa")
-    @JsonBackReference
+    @JsonBackReference(value="tipStavkeRacuna-stavkeRacuna")
     private Collection<StavkaRacuna> stavkaRacunaCollection;
 
     public TipStavkeRacuna() {

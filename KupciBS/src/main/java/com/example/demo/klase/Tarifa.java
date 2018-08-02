@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -34,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
     @NamedQuery(name = "Tarifa.findByCena", query = "SELECT t FROM Tarifa t WHERE t.cena = :cena"),
     @NamedQuery(name = "Tarifa.findByTip", query = "SELECT t FROM Tarifa t WHERE t.tip = :tip"),
     @NamedQuery(name = "Tarifa.findByZona", query = "SELECT t FROM Tarifa t WHERE t.zona = :zona")})
+@JsonIdentityInfo(scope = Tarifa.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idTarife")
 public class Tarifa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,7 +52,7 @@ public class Tarifa implements Serializable {
     @Column(name = "ZONA")
     private String zona;
     @OneToMany(mappedBy = "idTarife")
-    @JsonBackReference
+    @JsonBackReference(value="tarifa-stavkeOcitavanja")
     private Collection<StavkaOcitavanja> stavkaOcitavanjaCollection;
 
     public Tarifa() {

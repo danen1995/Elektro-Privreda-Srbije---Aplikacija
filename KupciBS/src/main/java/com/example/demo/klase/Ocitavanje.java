@@ -23,7 +23,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -39,8 +41,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "Ocitavanje.findByNovoVt", query = "SELECT o FROM Ocitavanje o WHERE o.novoVt = :novoVt"),
     @NamedQuery(name = "Ocitavanje.findByPrethodnoMt", query = "SELECT o FROM Ocitavanje o WHERE o.prethodnoMt = :prethodnoMt"),
     @NamedQuery(name = "Ocitavanje.findByPrethodnoVt", query = "SELECT o FROM Ocitavanje o WHERE o.prethodnoVt = :prethodnoVt")})
+@JsonIdentityInfo(scope = Ocitavanje.class,generator = ObjectIdGenerators.PropertyGenerator.class,property = "idOcitavanja")
 public class Ocitavanje implements Serializable {
-
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -57,13 +59,13 @@ public class Ocitavanje implements Serializable {
     private BigDecimal prethodnoVt;
     @JoinColumn(name = "ID_MM", referencedColumnName = "ID_MM")
     @ManyToOne
-    @JsonManagedReference
+    //@JsonManagedReference(value="ocitavanje-mernoMesto")
     private MestoMerenja idMm;
     @OneToMany(mappedBy = "idOcitavanja")
-    @JsonBackReference
+    @JsonBackReference(value="ocitavanje-racuni")
     private Collection<Racun> racunCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ocitavanje")
-    @JsonBackReference
+    @JsonBackReference(value="ocitavanje-stavkeOcitavanja")
     private Collection<StavkaOcitavanja> stavkaOcitavanjaCollection;
 
     public Ocitavanje() {

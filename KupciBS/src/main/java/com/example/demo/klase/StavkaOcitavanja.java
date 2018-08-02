@@ -17,7 +17,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -31,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "StavkaOcitavanja.findByIdOcitavanja", query = "SELECT s FROM StavkaOcitavanja s WHERE s.stavkaOcitavanjaPK.idOcitavanja = :idOcitavanja"),
     @NamedQuery(name = "StavkaOcitavanja.findByIdStavkeOc", query = "SELECT s FROM StavkaOcitavanja s WHERE s.stavkaOcitavanjaPK.idStavkeOc = :idStavkeOc"),
     @NamedQuery(name = "StavkaOcitavanja.findByUtroseno", query = "SELECT s FROM StavkaOcitavanja s WHERE s.utroseno = :utroseno")})
+@JsonIdentityInfo(scope = StavkaOcitavanja.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "stavkaOcitavanjaPK")
 public class StavkaOcitavanja implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,10 +44,11 @@ public class StavkaOcitavanja implements Serializable {
     private BigDecimal utroseno;
     @JoinColumn(name = "ID_OCITAVANJA", referencedColumnName = "ID_OCITAVANJA", insertable = false, updatable = false)
     @ManyToOne(optional = false)
+    //@JsonManagedReference(value="stavkaOcitavanja-ocitavanje")
     private Ocitavanje ocitavanje;
     @JoinColumn(name = "ID_TARIFE", referencedColumnName = "ID_TARIFE")
     @ManyToOne
-    @JsonManagedReference
+    //@JsonManagedReference(value="stavkaOcitavanja-tarifa")
     private Tarifa idTarife;
 
     public StavkaOcitavanja() {

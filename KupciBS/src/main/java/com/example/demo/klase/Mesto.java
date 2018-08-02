@@ -15,6 +15,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  *
  * @author Dane
@@ -23,9 +26,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "MESTO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Mesto.findAll", query = "SELECT m FROM Mesto m"),
-    @NamedQuery(name = "Mesto.findByNaziv", query = "SELECT m FROM Mesto m WHERE m.naziv = :naziv"),
-    @NamedQuery(name = "Mesto.findByPtt", query = "SELECT m FROM Mesto m WHERE m.ptt = :ptt")})
+	@NamedQuery(name = "Mesto.findAll", query = "SELECT m FROM Mesto m"),
+	@NamedQuery(name = "Mesto.findByNaziv", query = "SELECT m FROM Mesto m WHERE m.naziv = :naziv"),
+	@NamedQuery(name = "Mesto.findByPtt", query = "SELECT m FROM Mesto m WHERE m.ptt = :ptt")})
+@JsonIdentityInfo(scope = Mesto.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "naziv")
 public class Mesto implements Serializable {
 
     private static final long serialVersionUID = 1L;

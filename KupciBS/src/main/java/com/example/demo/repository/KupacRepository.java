@@ -18,7 +18,7 @@ public interface KupacRepository extends JpaRepository<Kupac, Integer> {
 	 public Kupac vratiOsnovnePodatke(BigDecimal idKorisnika);
 	 
 
-@Query("SELECT k from Kupac k INNER JOIN Potrosac p on p.idKupca = k.idKupca INNER JOIN MestoMerenja m on m.idPotrosaca = p.idPotrosaca WHERE p.edBroj =?1 AND m.brBrojila = ?2")
+	 @Query("SELECT k from Kupac k INNER JOIN Potrosac p on p.idKupca = k.idKupca INNER JOIN MestoMerenja m on m.idPotrosaca = p.idPotrosaca WHERE p.edBroj =?1 AND m.brBrojila = ?2")
 	public Kupac vratiKupcaZaEdBrojiBrojBrojila(String edBroj,BigDecimal brojBrojila);
 	 
 

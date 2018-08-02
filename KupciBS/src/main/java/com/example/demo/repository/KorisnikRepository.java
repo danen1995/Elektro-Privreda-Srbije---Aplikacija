@@ -12,6 +12,12 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Integer> {
 	
 	@Query("SELECT k FROM Korisnik k WHERE k.korisnickoIme = ?1 AND k.lozinka = ?2")
 	public Korisnik logovanje(String user, String pass);
+	
+//	@Query("SELECT MAX(k.idKupca) FROM Korisnik k WHERE k.idKupca = MAX(k.idKupca)")
+//	public Korisnik logovanje(String user, String pass);
+	
+	@Query("SELECT k FROM Korisnik k WHERE k.korisnickoIme = ?1")
+	public Korisnik postoji(String user);
 
 	@Query("SELECT k FROM Korisnik k  INNER JOIN Kupac ku on k.idKupca = ku.idKupca INNER JOIN Potrosac p on p.idKupca = ku.idKupca INNER JOIN MestoMerenja m on m.idPotrosaca = p.idPotrosaca WHERE m.brBrojila = ?1 AND p.edBroj = ?2")
 	public Korisnik registracijaBrojila(BigDecimal brojBrojila, String edBroj);

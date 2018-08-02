@@ -22,7 +22,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -38,6 +40,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "Potrosac.findByKategorijaPotrosnje", query = "SELECT p FROM Potrosac p WHERE p.kategorijaPotrosnje = :kategorijaPotrosnje"),
     @NamedQuery(name = "Potrosac.findByOdobrenaSnaga", query = "SELECT p FROM Potrosac p WHERE p.odobrenaSnaga = :odobrenaSnaga"),
     @NamedQuery(name = "Potrosac.findByVrstaSnabdevanja", query = "SELECT p FROM Potrosac p WHERE p.vrstaSnabdevanja = :vrstaSnabdevanja")})
+@JsonIdentityInfo(scope = Potrosac.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idPotrosaca")
 public class Potrosac implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,18 +59,18 @@ public class Potrosac implements Serializable {
     @Column(name = "VRSTA_SNABDEVANJA")
     private String vrstaSnabdevanja;
     @OneToMany(mappedBy = "idPotrosaca")
-    @JsonBackReference
+    @JsonBackReference(value="potrosac-mestaMerenja")
     private Collection<MestoMerenja> mestoMerenjaCollection;
     @JoinColumn(name = "ID_ADRESE_MM", referencedColumnName = "ID_ADRESE")
     @ManyToOne
-    @JsonManagedReference
+    //@JsonManagedReference(value="potrosac-adresa")
     private Adresa idAdreseMm;
     @JoinColumn(name = "ID_KUPCA", referencedColumnName = "ID_KUPCA")
     @ManyToOne
-    @JsonManagedReference
+    //@JsonManagedReference(value="potrosac-kupac")
     private Kupac idKupca;
     @OneToMany(mappedBy = "idPotrosaca")
-    @JsonBackReference
+    @JsonBackReference(value="potrosac-racuni")
     private Collection<Racun> racunCollection;
 
     public Potrosac() {

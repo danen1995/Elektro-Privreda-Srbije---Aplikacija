@@ -11,23 +11,26 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
  * @author Dane
  */
 @Embeddable
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "idOcitavanja")
 public class StavkaOcitavanjaPK implements Serializable {
 
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "ID_OCITAVANJA")
-    @JsonManagedReference
+    //@JsonManagedReference(value="stavkaOcitavanjaPK-ocitavanje")
     private BigDecimal idOcitavanja;
     @Basic(optional = false)
     @Column(name = "ID_STAVKE_OC")
-    @JsonManagedReference
+    //@JsonManagedReference(value="stavkaOcitavanjaPK-stavkaOcitavanja")
     private BigDecimal idStavkeOc;
 
     public StavkaOcitavanjaPK() {

@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -40,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
     @NamedQuery(name = "ObracunskiPeriod.findByGodina", query = "SELECT o FROM ObracunskiPeriod o WHERE o.godina = :godina"),
     @NamedQuery(name = "ObracunskiPeriod.findByMesec", query = "SELECT o FROM ObracunskiPeriod o WHERE o.mesec = :mesec"),
     @NamedQuery(name = "ObracunskiPeriod.findByNazivPerioda", query = "SELECT o FROM ObracunskiPeriod o WHERE o.nazivPerioda = :nazivPerioda")})
+@JsonIdentityInfo(scope = ObracunskiPeriod.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idOp")
 public class ObracunskiPeriod implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,7 +71,7 @@ public class ObracunskiPeriod implements Serializable {
     @Column(name = "NAZIV_PERIODA")
     private String nazivPerioda;
     @OneToMany(mappedBy = "idOp")
-    @JsonBackReference
+    @JsonBackReference(value="obracunskiPeriod-racuni")
     private Collection<Racun> racunCollection;
 
     public ObracunskiPeriod() {
