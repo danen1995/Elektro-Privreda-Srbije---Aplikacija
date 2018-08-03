@@ -135,11 +135,17 @@ public class Controller {
 				@RequestParam(value="edBroj") String edBroj,@RequestParam(value="brojBrojila") BigDecimal brojBrojila) {
 			Wrapper<Kupac> wrapper;
 			Kupac kupac = kupacRepository.vratiKupcaZaEdBrojiBrojBrojila(edBroj,brojBrojila);
-			if (kupac == null) {				
-				wrapper = new Wrapper<Kupac>(Wrapper.BUYER_DOES_NOT_EXIST, "Ne postoji kupac sa unetom kombinacijom ED broja i broja brojila.", null);
-			}else {
-				wrapper = new Wrapper<Kupac>(Wrapper.BUYER_AUTHENTICATED, "", kupac);
+			if (kupac == null) 
+				wrapper = new Wrapper<Kupac>(Wrapper.BUYER_INVALID, "Ne postoji kupac sa unetom kombinacijom ED broja i broja brojila.", null);
+			else {
+				Korisnik korisnik = korisnikRepository.vratiKorisnikaZaKupca(kupac);
+				if (korisnik == null) 
+					wrapper = new Wrapper<Kupac>(Wrapper.BUYER_WITHOUT_ACCOUNT, "", kupac);
+				else 
+					wrapper = new Wrapper<Kupac>(Wrapper.BUYER_HAS_ACCOUNT, "", kupac);
+							
 			}
 			return wrapper;
 		  }
+
 }

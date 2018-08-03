@@ -40,6 +40,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "Korisnik.findAll", query = "SELECT k FROM Korisnik k"),
     @NamedQuery(name = "Korisnik.logovanje", query = "SELECT k FROM Korisnik k WHERE k.korisnickoIme = ?1 AND k.lozinka = ?2"),
     @NamedQuery(name = "Korisnik.postoji", query = "SELECT k FROM Korisnik k WHERE k.korisnickoIme = ?1"),
+    @NamedQuery(name = "Korisnik.vratiKorisnikaZaKupca", query = "SELECT k FROM Korisnik k WHERE k.idKupca = ?1"),
     @NamedQuery(name = "Korisnik.findByIdKorisnika", query = "SELECT k FROM Korisnik k WHERE k.idKorisnika = :idKorisnika"),    
     @NamedQuery(name = "Korisnik.registracijaBrojila", query = "SELECT k FROM Korisnik k  INNER JOIN Kupac ku on k.idKupca = ku.idKupca INNER JOIN Potrosac p on p.idKupca = ku.idKupca INNER JOIN MestoMerenja m on m.idPotrosaca = p.idPotrosaca WHERE m.brBrojila = ?1 AND p.edBroj = ?2"),
     @NamedQuery(name = "Korisnik.findByLozinka", query = "SELECT k FROM Korisnik k WHERE k.lozinka = :lozinka")})
