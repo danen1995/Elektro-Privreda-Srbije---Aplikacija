@@ -5,7 +5,7 @@
  */
 package com.example.demo.klase;
 
-import java.io.Serializable;
+import java.io.Serializable ;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.Collection;

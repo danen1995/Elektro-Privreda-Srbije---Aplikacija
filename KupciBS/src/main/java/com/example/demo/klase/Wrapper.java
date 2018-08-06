@@ -1,6 +1,6 @@
 package com.example.demo.klase;
 
-import java.io.Serializable;
+import java.io.Serializable ;
 
 public class Wrapper<T> implements Serializable {
 	//Korisnik

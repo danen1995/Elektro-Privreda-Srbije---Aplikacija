@@ -5,7 +5,7 @@
  */
 package com.example.demo.klase;
 
-import java.io.Serializable;
+import java.io.Serializable ;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
