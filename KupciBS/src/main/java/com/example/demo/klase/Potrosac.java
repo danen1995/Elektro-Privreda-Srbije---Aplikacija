@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "Potrosac.findByKategorijaPotrosnje", query = "SELECT p FROM Potrosac p WHERE p.kategorijaPotrosnje = :kategorijaPotrosnje"),
     @NamedQuery(name = "Potrosac.findByOdobrenaSnaga", query = "SELECT p FROM Potrosac p WHERE p.odobrenaSnaga = :odobrenaSnaga"),
     @NamedQuery(name = "Potrosac.findByVrstaSnabdevanja", query = "SELECT p FROM Potrosac p WHERE p.vrstaSnabdevanja = :vrstaSnabdevanja")})
-@JsonIdentityInfo(scope = Potrosac.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idPotrosaca")
+//@JsonIdentityInfo(scope = Potrosac.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idPotrosaca")
 public class Potrosac implements Serializable {
 
     private static final long serialVersionUID = 1L;

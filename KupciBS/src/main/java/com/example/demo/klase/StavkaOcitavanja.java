@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "StavkaOcitavanja.findByIdOcitavanja", query = "SELECT s FROM StavkaOcitavanja s WHERE s.stavkaOcitavanjaPK.idOcitavanja = :idOcitavanja"),
     @NamedQuery(name = "StavkaOcitavanja.findByIdStavkeOc", query = "SELECT s FROM StavkaOcitavanja s WHERE s.stavkaOcitavanjaPK.idStavkeOc = :idStavkeOc"),
     @NamedQuery(name = "StavkaOcitavanja.findByUtroseno", query = "SELECT s FROM StavkaOcitavanja s WHERE s.utroseno = :utroseno")})
-@JsonIdentityInfo(scope = StavkaOcitavanja.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "stavkaOcitavanjaPK")
+//@JsonIdentityInfo(scope = StavkaOcitavanja.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "stavkaOcitavanjaPK")
 public class StavkaOcitavanja implements Serializable {
 
     private static final long serialVersionUID = 1L;

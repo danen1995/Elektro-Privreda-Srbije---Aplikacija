@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 	@NamedQuery(name = "Mesto.findAll", query = "SELECT m FROM Mesto m"),
 	@NamedQuery(name = "Mesto.findByNaziv", query = "SELECT m FROM Mesto m WHERE m.naziv = :naziv"),
 	@NamedQuery(name = "Mesto.findByPtt", query = "SELECT m FROM Mesto m WHERE m.ptt = :ptt")})
-@JsonIdentityInfo(scope = Mesto.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "naziv")
+//@JsonIdentityInfo(scope = Mesto.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "naziv")
 public class Mesto implements Serializable {
 
     private static final long serialVersionUID = 1L;

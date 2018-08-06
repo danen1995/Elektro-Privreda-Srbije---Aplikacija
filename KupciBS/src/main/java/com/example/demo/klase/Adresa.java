@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "Adresa.findByGrad", query = "SELECT a FROM Adresa a WHERE a.grad = :grad"),
     @NamedQuery(name = "Adresa.findByOpstina", query = "SELECT a FROM Adresa a WHERE a.opstina = :opstina"),
     @NamedQuery(name = "Adresa.findByUlica", query = "SELECT a FROM Adresa a WHERE a.ulica = :ulica")})
-@JsonIdentityInfo(scope = Adresa.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idAdrese")
+//@JsonIdentityInfo(scope = Adresa.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idAdrese")
 public class Adresa implements Serializable {
 
     private static final long serialVersionUID = 1L;

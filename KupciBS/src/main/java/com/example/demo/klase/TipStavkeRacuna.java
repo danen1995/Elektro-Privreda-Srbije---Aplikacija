@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "TipStavkeRacuna.findAll", query = "SELECT t FROM TipStavkeRacuna t"),
     @NamedQuery(name = "TipStavkeRacuna.findByIdTipaStavkeRacuna", query = "SELECT t FROM TipStavkeRacuna t WHERE t.idTipaStavkeRacuna = :idTipaStavkeRacuna"),
     @NamedQuery(name = "TipStavkeRacuna.findByNaziv", query = "SELECT t FROM TipStavkeRacuna t WHERE t.naziv = :naziv")})
-@JsonIdentityInfo(scope = TipStavkeRacuna.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idTipaStavkeRacuna")
+//@JsonIdentityInfo(scope = TipStavkeRacuna.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idTipaStavkeRacuna")
 public class TipStavkeRacuna implements Serializable {
 
     private static final long serialVersionUID = 1L;

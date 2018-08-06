@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "Uplata.findByIdUplate", query = "SELECT u FROM Uplata u WHERE u.idUplate = :idUplate"),
     @NamedQuery(name = "Uplata.findByDatum", query = "SELECT u FROM Uplata u WHERE u.datum = :datum"),
     @NamedQuery(name = "Uplata.findByIznos", query = "SELECT u FROM Uplata u WHERE u.iznos = :iznos")})
-@JsonIdentityInfo(scope = Uplata.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idUplate")
+//@JsonIdentityInfo(scope = Uplata.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idUplate")
 public class Uplata implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "ObracunskiPeriod.findByGodina", query = "SELECT o FROM ObracunskiPeriod o WHERE o.godina = :godina"),
     @NamedQuery(name = "ObracunskiPeriod.findByMesec", query = "SELECT o FROM ObracunskiPeriod o WHERE o.mesec = :mesec"),
     @NamedQuery(name = "ObracunskiPeriod.findByNazivPerioda", query = "SELECT o FROM ObracunskiPeriod o WHERE o.nazivPerioda = :nazivPerioda")})
-@JsonIdentityInfo(scope = ObracunskiPeriod.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idOp")
+//@JsonIdentityInfo(scope = ObracunskiPeriod.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idOp")
 public class ObracunskiPeriod implements Serializable {
 
     private static final long serialVersionUID = 1L;

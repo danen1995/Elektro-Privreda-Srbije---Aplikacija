@@ -11,6 +11,9 @@ public class Wrapper<T> implements Serializable {
 	public static final String BUYER_HAS_ACCOUNT = "301";
 	public static final String BUYER_WITHOUT_ACCOUNT = "302";
 	public static final String BUYER_INVALID = "303";
+	//Potrosac
+	public static final String CONSUMERS_EMPTY = "401";
+	public static final String CONSUMERS_VALID = "402";
 
 	/**
 	 * 

@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "MestoMerenja.findAll", query = "SELECT m FROM MestoMerenja m"),
     @NamedQuery(name = "MestoMerenja.findByIdMm", query = "SELECT m FROM MestoMerenja m WHERE m.idMm = :idMm"),
     @NamedQuery(name = "MestoMerenja.findByBrBrojila", query = "SELECT m FROM MestoMerenja m WHERE m.brBrojila = :brBrojila")})
-@JsonIdentityInfo(scope = MestoMerenja.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idMm")
+//@JsonIdentityInfo(scope = MestoMerenja.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idMm")
 public class MestoMerenja implements Serializable {
 
     private static final long serialVersionUID = 1L;

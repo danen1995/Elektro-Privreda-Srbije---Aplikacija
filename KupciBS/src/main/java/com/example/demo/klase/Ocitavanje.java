@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "Ocitavanje.findByNovoVt", query = "SELECT o FROM Ocitavanje o WHERE o.novoVt = :novoVt"),
     @NamedQuery(name = "Ocitavanje.findByPrethodnoMt", query = "SELECT o FROM Ocitavanje o WHERE o.prethodnoMt = :prethodnoMt"),
     @NamedQuery(name = "Ocitavanje.findByPrethodnoVt", query = "SELECT o FROM Ocitavanje o WHERE o.prethodnoVt = :prethodnoVt")})
-@JsonIdentityInfo(scope = Ocitavanje.class,generator = ObjectIdGenerators.PropertyGenerator.class,property = "idOcitavanja")
+//@JsonIdentityInfo(scope = Ocitavanje.class,generator = ObjectIdGenerators.PropertyGenerator.class,property = "idOcitavanja")
 public class Ocitavanje implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation

@@ -51,7 +51,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "Racun.findByMestoIzdavanja", query = "SELECT r FROM Racun r WHERE r.mestoIzdavanja = :mestoIzdavanja"),
     @NamedQuery(name = "Racun.findByPozivNaBroj", query = "SELECT r FROM Racun r WHERE r.pozivNaBroj = :pozivNaBroj"),
     @NamedQuery(name = "Racun.findByUkupanIznos", query = "SELECT r FROM Racun r WHERE r.ukupanIznos = :ukupanIznos")})
-@JsonIdentityInfo(scope = Racun.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idRacuna")
+//@JsonIdentityInfo(scope = Racun.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idRacuna")
 public class Racun implements Serializable {
 
     private static final long serialVersionUID = 1L;

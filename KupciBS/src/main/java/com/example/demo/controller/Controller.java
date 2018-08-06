@@ -73,7 +73,10 @@ public class Controller {
 	
 	  @GetMapping("/vratiPotrosaceZaKupca")
 	  public @ResponseBody List<Potrosac> vratiPotrosaceZaKupca(@RequestParam(value="idKupca") BigDecimal idKupca) {
-		  return potrosacRepository.vratiPotrosaceZaKupca(idKupca);
+		  List<Potrosac> potrosaci = potrosacRepository.vratiPotrosaceZaKupca(idKupca);
+		  if (potrosaci.get(0).getIdAdreseMm() == null)
+			  System.out.println("Adress null");
+		  return potrosaci;
 	  }
 	  
 	  @GetMapping("/vratiRacuneZaPotrosaca")

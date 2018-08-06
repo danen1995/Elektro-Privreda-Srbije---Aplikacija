@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     @NamedQuery(name = "Tarifa.findByCena", query = "SELECT t FROM Tarifa t WHERE t.cena = :cena"),
     @NamedQuery(name = "Tarifa.findByTip", query = "SELECT t FROM Tarifa t WHERE t.tip = :tip"),
     @NamedQuery(name = "Tarifa.findByZona", query = "SELECT t FROM Tarifa t WHERE t.zona = :zona")})
-@JsonIdentityInfo(scope = Tarifa.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idTarife")
+//@JsonIdentityInfo(scope = Tarifa.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "idTarife")
 public class Tarifa implements Serializable {
 
     private static final long serialVersionUID = 1L;
