@@ -13,9 +13,9 @@ import com.example.demo.klase.Racun;
 @Repository
 public interface RacunRepository extends JpaRepository<Racun, Integer> {
 	
-	@Query("SELECT r FROM Racun r WHERE r.idPotrosaca.idPotrosaca = ?1")
+	@Query("SELECT r FROM Racun r WHERE r.idPotrosaca.idPotrosaca = ?1 ORDER BY r.idOp.datumOd DESC")
 	public List<Racun> vratiRacuneZaPotrosaca(BigDecimal idPotrosaca);
 	
-	@Query("SELECT r.racunPdf FROM Racun r")
+	@Query("SELECT r.racunPdf FROM Racun r WHERE r.idRacuna = ?1")
 	public Blob vratiPdf(BigDecimal idRacuna);
 }

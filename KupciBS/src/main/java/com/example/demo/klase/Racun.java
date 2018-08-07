@@ -43,8 +43,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @NamedQueries({
 
     @NamedQuery(name = "Racun.findAll", query = "SELECT r FROM Racun r"),
-    @NamedQuery(name = "Racun.vratiRacuneZaPotrosaca", query = "SELECT r FROM Racun r WHERE r.idPotrosaca.idPotrosaca = ?1"),
-    @NamedQuery(name = "Racun.vratiPdf", query = "SELECT r.racunPdf FROM Racun r"),
+    @NamedQuery(name = "Racun.vratiRacuneZaPotrosaca", query = "SELECT r FROM Racun r WHERE r.idPotrosaca.idPotrosaca = ?1 ORDER BY r.idOp.datumOd DESC"),
+    @NamedQuery(name = "Racun.vratiPdf", query = "SELECT r.racunPdf FROM Racun r WHERE r.idRacuna = ?1"),
     @NamedQuery(name = "Racun.findByIdRacuna", query = "SELECT r FROM Racun r WHERE r.idRacuna = :idRacuna"),
     @NamedQuery(name = "Racun.findByDatumIzdavanja", query = "SELECT r FROM Racun r WHERE r.datumIzdavanja = :datumIzdavanja"),
     @NamedQuery(name = "Racun.findByDatumPrometa", query = "SELECT r FROM Racun r WHERE r.datumPrometa = :datumPrometa"),
