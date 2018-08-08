@@ -17,6 +17,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.data.jpa.repository.Query;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -30,6 +32,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StavkaOcitavanja.findAll", query = "SELECT s FROM StavkaOcitavanja s"),
+    @NamedQuery(name = "StavkaOcitavanja.vratiStavkeOcitavanja", query = "SELECT s FROM StavkaOcitavanja s WHERE s.ocitavanje.idOcitavanja = ?1 ORDER BY s.idTarife.idTarife"),
     @NamedQuery(name = "StavkaOcitavanja.findByIdOcitavanja", query = "SELECT s FROM StavkaOcitavanja s WHERE s.stavkaOcitavanjaPK.idOcitavanja = :idOcitavanja"),
     @NamedQuery(name = "StavkaOcitavanja.findByIdStavkeOc", query = "SELECT s FROM StavkaOcitavanja s WHERE s.stavkaOcitavanjaPK.idStavkeOc = :idStavkeOc"),
     @NamedQuery(name = "StavkaOcitavanja.findByUtroseno", query = "SELECT s FROM StavkaOcitavanja s WHERE s.utroseno = :utroseno")})
