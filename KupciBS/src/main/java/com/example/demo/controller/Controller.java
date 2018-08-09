@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,14 +110,16 @@ public class Controller {
 
 	@GetMapping("/vratiPdf")
 	public ResponseEntity<byte[]> vratiPdf(@RequestParam(value = "idRacuna") BigDecimal idRacuna) {
-		Blob racun = racunRepository.vratiPdf(idRacuna);
+		Racun racun = racunRepository.vratiRacun(idRacuna);
+		Blob pdf = racunRepository.vratiPdf(idRacuna);
 		byte[] contents;
 		ResponseEntity<byte[]> response = null;
 		try {
-			contents = racun.getBytes(1, (int) racun.length());
+			contents = pdf.getBytes(1, (int) pdf.length());
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.parseMediaType("application/png")); // application/pdf
-			String filename = "output.png";
+			String filename = racun.getIdPotrosaca().getEdBroj() + "_" 
+			+ new SimpleDateFormat("MM/dd/yyyy").format(racun.getDatumIzdavanja()) + ".png";
 			headers.setContentDispositionFormData(filename, filename);
 			headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 			response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);

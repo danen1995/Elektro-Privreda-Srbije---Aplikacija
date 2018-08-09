@@ -18,4 +18,7 @@ public interface RacunRepository extends JpaRepository<Racun, Integer> {
 	
 	@Query("SELECT r.racunPdf FROM Racun r WHERE r.idRacuna = ?1")
 	public Blob vratiPdf(BigDecimal idRacuna);
+	
+	@Query("SELECT r FROM Racun r WHERE r.idRacuna = ?1")
+	public Racun vratiRacun(BigDecimal idRacuna);
 }
