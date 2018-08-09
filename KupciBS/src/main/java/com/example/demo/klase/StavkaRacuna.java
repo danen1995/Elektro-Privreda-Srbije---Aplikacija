@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StavkaRacuna.findAll", query = "SELECT s FROM StavkaRacuna s"),
-    @NamedQuery(name = "StavkaRacuna.vratiStavkeRacuna", query = "SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idRacuna = ?1"),
+    @NamedQuery(name = "StavkaRacuna.vratiStavkeRacuna", query = "SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idRacuna = ?1  ORDER BY s.idTipa.idTipaStavkeRacuna"),
     @NamedQuery(name = "StavkaRacuna.findByIdStavkeRacuna", query = "SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idStavkeRacuna = :idStavkeRacuna"),
     @NamedQuery(name = "StavkaRacuna.findByIznos", query = "SELECT s FROM StavkaRacuna s WHERE s.iznos = :iznos")})
 //@JsonIdentityInfo(scope = StavkaRacuna.class, generator = ObjectIdGenerators.PropertyGenerator.class,property = "stavkaRacunaPK")

@@ -38,6 +38,8 @@ public class Controller {
 	private MestoMerenjaRepository mestoMerenjaRepository;
 	@Autowired
 	private StavkaOcitavanjaRepository stavkaOcitavanjaRepository;
+	@Autowired
+	private TarifaRepository tarifaRepository;
 
 	@PostMapping("/logovanje")
 	public @ResponseBody Wrapper<Korisnik> logovanje(@RequestParam(value = "user") String user,
@@ -86,8 +88,8 @@ public class Controller {
 		return racunRepository.findAll();
 	}
 
-	@GetMapping("/vratiSveStavkeRacuna")
-	public @ResponseBody List<StavkaRacuna> vratiSveStavkeRacuna(
+	@GetMapping("/vratiStavkeRacuna")
+	public @ResponseBody List<StavkaRacuna> vratiStavkeRacuna(
 			@RequestParam(value = "idRacuna") BigDecimal idRacuna) {
 		return stavkaRacunaRepository.vratiStavkeRacuna(idRacuna);
 	}
@@ -152,6 +154,11 @@ public class Controller {
 	public @ResponseBody List<StavkaOcitavanja> vratiStavkeOcitavanja(
 			@RequestParam(value = "idOcitavanja") BigDecimal idOcitavanja) {		
 		return stavkaOcitavanjaRepository.vratiStavkeOcitavanja(idOcitavanja);
+	}
+	
+	@GetMapping("/vratiSveTarife")
+	public @ResponseBody List<Tarifa> vratiSveTarife() {		
+		return tarifaRepository.vratiSveTarife();
 	}
 
 }

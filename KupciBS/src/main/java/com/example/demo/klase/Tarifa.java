@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "TARIFA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tarifa.findAll", query = "SELECT t FROM Tarifa t"),
+    @NamedQuery(name = "Tarifa.vratiSveTarife", query = "SELECT t FROM Tarifa t"),
     @NamedQuery(name = "Tarifa.findByIdTarife", query = "SELECT t FROM Tarifa t WHERE t.idTarife = :idTarife"),
     @NamedQuery(name = "Tarifa.findByCena", query = "SELECT t FROM Tarifa t WHERE t.cena = :cena"),
     @NamedQuery(name = "Tarifa.findByTip", query = "SELECT t FROM Tarifa t WHERE t.tip = :tip"),

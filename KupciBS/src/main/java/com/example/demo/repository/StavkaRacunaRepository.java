@@ -13,7 +13,7 @@ import com.example.demo.klase.StavkaRacunaPK;
 @Repository
 public interface StavkaRacunaRepository extends JpaRepository<StavkaRacuna, Integer> {
 	
-	@Query("SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idRacuna = ?1")
+	@Query("SELECT s FROM StavkaRacuna s WHERE s.stavkaRacunaPK.idRacuna = ?1 ORDER BY s.idTipa.idTipaStavkeRacuna")
 	public List<StavkaRacuna> vratiStavkeRacuna(BigDecimal idRacuna);
 
 }
