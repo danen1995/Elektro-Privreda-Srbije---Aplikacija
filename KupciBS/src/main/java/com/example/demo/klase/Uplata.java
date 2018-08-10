@@ -21,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.data.jpa.repository.Query;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -34,6 +36,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Uplata.findAll", query = "SELECT u FROM Uplata u"),
+    @NamedQuery(name = "Uplata.vratiUplateRacuna", query = "SELECT u FROM Uplata u WHERE u.idRacuna.idRacuna = ?1"),
     @NamedQuery(name = "Uplata.findByIdUplate", query = "SELECT u FROM Uplata u WHERE u.idUplate = :idUplate"),
     @NamedQuery(name = "Uplata.findByDatum", query = "SELECT u FROM Uplata u WHERE u.datum = :datum"),
     @NamedQuery(name = "Uplata.findByIznos", query = "SELECT u FROM Uplata u WHERE u.iznos = :iznos")})

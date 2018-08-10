@@ -41,7 +41,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "RACUN")
 @XmlRootElement
 @NamedQueries({
-
     @NamedQuery(name = "Racun.findAll", query = "SELECT r FROM Racun r"),
     @NamedQuery(name = "Racun.vratiRacun", query = "SELECT r FROM Racun r WHERE r.idRacuna = ?1"),
     @NamedQuery(name = "Racun.vratiRacuneZaPotrosaca", query = "SELECT r FROM Racun r WHERE r.idPotrosaca.idPotrosaca = ?1 ORDER BY r.idOp.datumOd DESC"),

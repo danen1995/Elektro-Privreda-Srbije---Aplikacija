@@ -41,6 +41,9 @@ public class Controller {
 	private StavkaOcitavanjaRepository stavkaOcitavanjaRepository;
 	@Autowired
 	private TarifaRepository tarifaRepository;
+	@Autowired
+	private UplataRepository uplataRepository;
+	
 
 	@PostMapping("/logovanje")
 	public @ResponseBody Wrapper<Korisnik> logovanje(@RequestParam(value = "user") String user,
@@ -117,7 +120,7 @@ public class Controller {
 		try {
 			contents = pdf.getBytes(1, (int) pdf.length());
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.parseMediaType("application/png")); // application/pdf
+			headers.setContentType(MediaType.parseMediaType("application/json")); // application/pdf
 			String filename = racun.getIdPotrosaca().getEdBroj() + "_" 
 			+ new SimpleDateFormat("MM/dd/yyyy").format(racun.getDatumIzdavanja()) + ".png";
 			headers.setContentDispositionFormData(filename, filename);
@@ -162,6 +165,12 @@ public class Controller {
 	@GetMapping("/vratiSveTarife")
 	public @ResponseBody List<Tarifa> vratiSveTarife() {		
 		return tarifaRepository.vratiSveTarife();
+	}
+	
+	@GetMapping("/vratiUplateRacuna")
+	public @ResponseBody List<Uplata> vratiUplateRacuna(
+			@RequestParam(value="idRacuna") BigDecimal idRacuna){
+		return uplataRepository.vratiUplateRacuna(idRacuna);
 	}
 
 }
